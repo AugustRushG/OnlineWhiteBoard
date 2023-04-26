@@ -2,22 +2,34 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="WhiteboardServer" />
+      <artifact name="DS_A2_CreateWhiteboard:jar" />
+      <artifact name="OnlineWhiteBoard_Server:jar" />
     </artifacts-to-build>
   </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="06680185-165e-4e53-8000-00e0d7013382" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/WhiteboardServer.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/META-INF/MANIFEST.MF" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/server/IRemoteDraw.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/server/RemoteDraw.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/server/WhiteboardServer.java" afterDir="false" />
+    <list default="true" id="06680185-165e-4e53-8000-00e0d7013382" name="Changes" comment="Finish some structures">
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/DS_A2_CreateWhiteboard_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/OnlineWhiteBoard_Server_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jpa-buddy.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ReadMe.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/application/WhiteboardApp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/client/CreateWhiteboard.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/client/META-INF/MANIFEST.MF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/client/WhiteboardClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/constant/RegistryConstant.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/gui/ServerGUI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/gui/WhiteboardGUI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/server/ClientHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/server/META-INF/MANIFEST.MF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/server/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/WhiteboardServer.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/WhiteboardServer.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +51,11 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
     <option name="importingSettings">
       <MavenImportingSettings>
         <option name="workspaceImportEnabled" value="true" />
@@ -57,13 +74,13 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/xu741/Documents/GitHub/DS_A2_OnlineWhiteBoard/src/main/java/org/example",
+    "last_opened_file_path": "C:/Users/xu741/Documents/GitHub/repo/DS_A2_OnlineWhiteBoard/src/main/java/client/META-INF",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
+    "project.structure.last.edited": "Artifacts",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "vue.rearranger.settings.migration": "true"
@@ -75,13 +92,39 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager">
-    <configuration name="WhiteboardServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="server.WhiteboardServer" />
+  <component name="RunManager" selected="Application.CreateWhiteboard">
+    <configuration name="CreateWhiteboard" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="client.CreateWhiteboard" />
       <module name="DS_A2_OnlineWhiteBoard" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="server.*" />
+          <option name="PATTERN" value="client.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="server.Server" />
+      <module name="DS_A2_OnlineWhiteBoard" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="client.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WhiteboardApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="application.WhiteboardApp" />
+      <module name="DS_A2_OnlineWhiteBoard" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value=".*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -91,7 +134,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.WhiteboardServer" />
+        <item itemvalue="Application.CreateWhiteboard" />
+        <item itemvalue="Application.Server" />
+        <item itemvalue="Application.WhiteboardApp" />
       </list>
     </recent_temporary>
   </component>
@@ -105,10 +150,15 @@
       <updated>1681885933815</updated>
       <workItem from="1681885935004" duration="123000" />
       <workItem from="1682328843066" duration="5221000" />
+      <workItem from="1682426109898" duration="11414000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Finish some structures" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finish some structures" />
   </component>
 </project>
