@@ -1,7 +1,7 @@
 package client;
 
 import constant.RegistryConstant;
-import server.IRemoteDraw;
+import server.remoteObject.*;
 import application.WhiteboardApp;
 
 import java.io.IOException;
@@ -11,36 +11,32 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 public class CreateWhiteboard {
-    private static int serverPort;
-    private static String serverAddress;
-    private static String userName;
+    private static int serverPort = 1234;
+    private static String serverAddress = "localhost";
+    private static String userName = "august";
 
 
     public static void main(String[] args) {
-        // create the app
-        WhiteboardApp whiteboardApp = new WhiteboardApp(true);
 
         try{
-            // get remote method
+            // bind remote objects
             Registry registry = LocateRegistry.getRegistry("localhost");
             IRemoteDraw remoteDraw = (IRemoteDraw) registry.lookup(RegistryConstant.REMOTE_DRAW);
+            IRemoteMessage remoteMessage = (IRemoteMessage) registry.lookup(RegistryConstant.REMOTE_MESSAGE);
+            IRemoteRoom remoteRoom = (IRemoteRoom) registry.lookup(RegistryConstant.REMOTE_ROOM);
+            WhiteboardManager whiteboardManager = new WhiteboardManager(userName,serverAddress,serverPort,remoteDraw,remoteMessage,remoteRoom);
 
-
-            // create a communication socket for the manager. So other users can join adn communicate
-            // connect to the socket
-
+            // create the app
+            WhiteboardApp whiteboardApp = new WhiteboardApp(true);
             // start whiteboard app
             whiteboardApp.createWhiteboard();
 
 
 
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
-        } catch (NotBoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
 
     }
 }

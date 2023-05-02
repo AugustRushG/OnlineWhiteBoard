@@ -1,4 +1,4 @@
-package server;
+package server.remoteObject;
 
 import java.rmi.RemoteException;
 import java.rmi.server.RMIClientSocketFactory;
@@ -7,7 +7,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class RemoteDraw extends UnicastRemoteObject implements IRemoteDraw {
 
-    protected RemoteDraw() throws RemoteException {
+    public RemoteDraw() throws RemoteException {
     }
 
     protected RemoteDraw(int port) throws RemoteException {

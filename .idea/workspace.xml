@@ -3,33 +3,32 @@
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
       <artifact name="DS_A2_CreateWhiteboard:jar" />
-      <artifact name="OnlineWhiteBoard_Server:jar" />
     </artifacts-to-build>
   </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="06680185-165e-4e53-8000-00e0d7013382" name="Changes" comment="Finish some structures">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/DS_A2_CreateWhiteboard_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/OnlineWhiteBoard_Server_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jpa-buddy.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ReadMe.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/application/WhiteboardApp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/client/CreateWhiteboard.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/client/META-INF/MANIFEST.MF" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/client/WhiteboardClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/constant/RegistryConstant.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/gui/ServerGUI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/gui/WhiteboardGUI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/server/ClientHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/server/META-INF/MANIFEST.MF" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/server/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/WhiteboardServer.xml" beforeDir="false" />
+    <list default="true" id="06680185-165e-4e53-8000-00e0d7013382" name="Changes" comment="Complete UI for whiteboard">
+      <change afterPath="$PROJECT_DIR$/src/main/java/client/WhiteboardManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/gui/DrawingComponent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/gui/FontChooser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/gui/MyShape.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/gui/MyText.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/server/Room.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/server/remoteObject/IRemoteMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/server/remoteObject/IRemoteRoom.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/server/remoteObject/RemoteMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/server/remoteObject/RemoteRoom.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/WhiteboardServer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/CreateWhiteboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/CreateWhiteboard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/WhiteboardClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/WhiteboardClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/constant/RegistryConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/constant/RegistryConstant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/WhiteboardGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/WhiteboardGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/IRemoteDraw.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/remoteObject/IRemoteDraw.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/RemoteDraw.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/remoteObject/RemoteDraw.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/Server.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +39,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -68,24 +68,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/xu741/Documents/GitHub/repo/DS_A2_OnlineWhiteBoard/src/main/java/client/META-INF",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/xu741/Documents/GitHub/repo/DS_A2_OnlineWhiteBoard/src/main/java/client/META-INF&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="server" />
@@ -157,8 +157,20 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Finish some structures" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finish some structures" />
+    <MESSAGE value="Complete UI for whiteboard" />
+    <option name="LAST_COMMIT_MESSAGE" value="Complete UI for whiteboard" />
   </component>
 </project>
