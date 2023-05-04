@@ -1,6 +1,7 @@
 package client;
 
 import constant.RegistryConstant;
+import models.WhiteboardManager;
 import server.remoteObject.*;
 import application.WhiteboardApp;
 
@@ -9,6 +10,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 
 public class CreateWhiteboard {
     private static int serverPort = 1234;
@@ -20,21 +22,29 @@ public class CreateWhiteboard {
 
         try{
             // bind remote objects
-            Registry registry = LocateRegistry.getRegistry("localhost");
-            IRemoteDraw remoteDraw = (IRemoteDraw) registry.lookup(RegistryConstant.REMOTE_DRAW);
-            IRemoteMessage remoteMessage = (IRemoteMessage) registry.lookup(RegistryConstant.REMOTE_MESSAGE);
-            IRemoteRoom remoteRoom = (IRemoteRoom) registry.lookup(RegistryConstant.REMOTE_ROOM);
-            WhiteboardManager whiteboardManager = new WhiteboardManager(userName,serverAddress,serverPort,remoteDraw,remoteMessage,remoteRoom);
+            Registry registry = LocateRegistry.getRegistry(serverAddress);
+            IRemoteManager remoteManager = (IRemoteManager) registry.lookup(RegistryConstant.REMOTE_MANAGER);
 
-            // create the app
-            WhiteboardApp whiteboardApp = new WhiteboardApp(true);
-            // start whiteboard app
-            whiteboardApp.createWhiteboard();
+            try {
+                // create room in server
+                RemoteManager manager = new RemoteManager();
+                remoteManager.createRoom(manager,userName);
+                // create the app
+                WhiteboardApp whiteboardApp = new WhiteboardApp(remoteManager);
+                // start whiteboard app
+                whiteboardApp.createWhiteboard();
+
+            }catch (Exception e){
+                e.printStackTrace();
+                throw new RuntimeException("creating room failed, please check server status and try again " + e);
+
+            }
 
 
 
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (IOException | NotBoundException e) {
+            throw new RuntimeException("connecting to server failed, please check server status such as port number " +
+                    "and ip address then try again " + e);
         }
 
 

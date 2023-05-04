@@ -3,6 +3,7 @@
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
       <artifact name="DS_A2_CreateWhiteboard:jar" />
+      <artifact name="OnlineWhiteBoard_Server:jar" />
     </artifacts-to-build>
   </component>
   <component name="AutoImportSettings">
@@ -10,25 +11,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="06680185-165e-4e53-8000-00e0d7013382" name="Changes" comment="Complete UI for whiteboard">
-      <change afterPath="$PROJECT_DIR$/src/main/java/client/WhiteboardManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/gui/DrawingComponent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/gui/FontChooser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/gui/MyShape.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/gui/MyText.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/server/Room.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/server/remoteObject/IRemoteMessage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/server/remoteObject/IRemoteRoom.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/server/remoteObject/RemoteMessage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/server/remoteObject/RemoteRoom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/models/ChatMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/models/Room.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/models/Whiteboard.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/models/WhiteboardManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/server/remoteObject/IRemoteClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/server/remoteObject/IRemoteManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/server/remoteObject/RemoteClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/server/remoteObject/RemoteManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/DS_A2_CreateWhiteboard_jar/CreateWhiteboard.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/DS_A2_CreateWhiteboard_jar/CreateWhiteboard.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/OnlineWhiteBoard_Server_jar/OnlineWhiteBoard_Server.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/OnlineWhiteBoard_Server_jar/OnlineWhiteBoard_Server.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/WhiteboardApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/WhiteboardApp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/client/CreateWhiteboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/CreateWhiteboard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/WhiteboardClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/WhiteboardClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/WhiteboardClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/WhiteboardClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/WhiteboardManager.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/constant/RegistryConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/constant/RegistryConstant.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/gui/WhiteboardGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/WhiteboardGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/IRemoteDraw.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/remoteObject/IRemoteDraw.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/RemoteDraw.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/remoteObject/RemoteDraw.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/ClientHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/Room.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/remoteObject/IRemoteMessage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/remoteObject/IRemoteRoom.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/remoteObject/RemoteMessage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/remoteObject/RemoteRoom.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,8 +45,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Enum" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -98,7 +105,7 @@
       <module name="DS_A2_OnlineWhiteBoard" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="client.*" />
+          <option name="PATTERN" value="models.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -111,7 +118,7 @@
       <module name="DS_A2_OnlineWhiteBoard" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="client.*" />
+          <option name="PATTERN" value="models.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -151,7 +158,16 @@
       <workItem from="1681885935004" duration="123000" />
       <workItem from="1682328843066" duration="5221000" />
       <workItem from="1682426109898" duration="11414000" />
+      <workItem from="1683088771342" duration="21172000" />
     </task>
+    <task id="LOCAL-00001" summary="Complete UI for whiteboard">
+      <created>1682986677591</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1682986677591</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

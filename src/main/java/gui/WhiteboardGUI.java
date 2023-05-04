@@ -1,5 +1,10 @@
 package gui;
 
+import application.WhiteboardApp;
+import models.ChatMessage;
+import models.WhiteboardClient;
+import server.remoteObject.IRemoteManager;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -9,6 +14,8 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
+import java.rmi.RemoteException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -22,15 +29,16 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
     private final JButton rectangleButton;
     private final JButton freeHandButton;
     private final JButton fontButton;
-
     private String currentShape = "None";
     private Color currentColor = Color.BLACK;
     private int penSize = 5;
-
     private Font currentFont = new Font("Arial", Font.PLAIN, 24);
+    private WhiteboardApp whiteboardApp;
+    public DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
 
-    public WhiteboardGUI() {
+    public WhiteboardGUI(WhiteboardApp whiteboardApp) {
+        this.whiteboardApp = whiteboardApp;
         JFrame frame = new JFrame();
         frame.setTitle("Whiteboard");
 
@@ -88,6 +96,53 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
         buttonPanel.add(fontButton);
 
         contentPane.add(buttonPanel, BorderLayout.NORTH);
+
+        // add chat area
+        JPanel chatPanel = new JPanel(new BorderLayout());
+        JTextArea chatArea = new JTextArea();
+        chatArea.setEditable(false);
+        chatArea.setPreferredSize(new Dimension(800,100));
+        JScrollPane chatScrollPane = new JScrollPane(chatArea);
+        JTextField chatInput = new JTextField();
+        chatInput.setPreferredSize(new Dimension(800,50));
+        JButton sendButton = new JButton("Send");
+        sendButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String message = chatInput.getText();
+                System.out.println("sending message to server: " + message);
+                // Do something with the message, e.g. send to server
+                try {
+                    whiteboardApp.sendMessage(message);
+                } catch (RemoteException ex) {
+                    throw new RuntimeException(ex);
+                }
+                chatInput.setText("");
+
+                // Append new message to chat area
+                try{
+                    ArrayList<ChatMessage> chatBoard = whiteboardApp.getChatMessages();
+                    System.out.println("received messages "+chatBoard);
+                    chatArea.setText("");
+                    for (ChatMessage chatMessage : chatBoard) {
+                        String text = chatMessage.getTimeStamp()+" "+chatMessage.getSender() + ": " + chatMessage.getContent() + "\n";
+                        chatArea.append(text);
+                    }
+                }
+                catch (Exception exception){
+                    throw new RuntimeException("Updating messages failed, check server status");
+                }
+
+
+            }
+        });
+        JPanel chatInputPanel = new JPanel(new BorderLayout());
+        chatInputPanel.add(chatInput, BorderLayout.CENTER);
+        chatInputPanel.add(sendButton, BorderLayout.EAST);
+        chatPanel.add(chatScrollPane, BorderLayout.CENTER);
+        chatPanel.add(chatInputPanel, BorderLayout.SOUTH);
+        contentPane.add(chatPanel, BorderLayout.SOUTH);
+
 
         // Show the window
         frame.setVisible(true);
@@ -259,7 +314,7 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
             for (MyText t : texts){
                 g2.setPaint(t.getColor());
                 g2.setFont(t.getFont());
-                System.out.println("text now is "+t.getText()+"location is "+t.getX1()+""+t.getY1());
+//                System.out.println("text now is "+t.getText()+"location is "+t.getX1()+""+t.getY1());
                 g2.drawString(t.getText(),t.getX1(),t.getY1());
             }
 
@@ -339,4 +394,6 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
     public void stateChanged(ChangeEvent e) {
         penSize = sizeSlider.getValue();
     }
+
+
 }

@@ -1,12 +1,9 @@
 package constant;
 
-import server.remoteObject.RemoteDraw;
-import server.remoteObject.RemoteMessage;
-import server.remoteObject.RemoteRoom;
+import server.remoteObject.*;
 
 
 public class RegistryConstant {
-    public static final String REMOTE_DRAW = RemoteDraw.class.getName();
-    public static final String REMOTE_MESSAGE = RemoteMessage.class.getName();
-    public static final String REMOTE_ROOM = RemoteRoom.class.getName();
+    public static final String REMOTE_CLIENT = RemoteClient.class.getName();
+    public static final String REMOTE_MANAGER = RemoteManager.class.getName();
 }
