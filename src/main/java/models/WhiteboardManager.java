@@ -7,8 +7,8 @@ import java.rmi.NotBoundException;
 public class WhiteboardManager extends  WhiteboardClient{
 
 
-    public WhiteboardManager(String username, int roomID) throws IOException, NotBoundException {
-        super(username,roomID);
+    public WhiteboardManager(String username) throws IOException, NotBoundException {
+        super(username);
 
     }
 

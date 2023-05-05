@@ -1,11 +1,11 @@
 package gui;
 
 import java.awt.*;
+import java.io.Serializable;
 
-public class MyText {
+public class MyText implements Serializable {
     private String text;
     private Color color;
-
     private Font font;
 
     public int getX1() {

@@ -1,8 +1,9 @@
 package gui;
 
 import java.awt.*;
+import java.io.Serializable;
 
-public class MyShape {
+public class MyShape implements Serializable {
     private Shape shape;
     private Color color;
     private int penSize;

@@ -1,8 +1,12 @@
 package models;
 
+import gui.MyShape;
+import gui.MyText;
+import gui.WhiteboardManagerGUI;
 import server.remoteObject.IRemoteClient;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,33 +14,59 @@ public class Room {
 
     private int roomID;
     private WhiteboardManager whiteboardManager;
-    private List<WhiteboardClient> roomClients;
-    private Whiteboard whiteboard;
-    private ArrayList<ChatMessage> chatBoard;
-    public Room(WhiteboardManager whiteboardManager, List<WhiteboardClient> roomClients, int roomID){
+    private volatile HashMap<String, WhiteboardClient> clientHashMap;
+    private volatile Whiteboard whiteboard;
+    private volatile ArrayList<ChatMessage> chatBoard;
+    public Room(WhiteboardManager whiteboardManager, HashMap<String, WhiteboardClient> clientHashMap, int roomID){
         this.whiteboardManager = whiteboardManager;
-        this.roomClients = roomClients;
+        this.clientHashMap = clientHashMap;
         this.roomID = roomID;
         this.whiteboard = new Whiteboard();
         this.chatBoard = new ArrayList<>();
-        roomClients.add(whiteboardManager);
+        clientHashMap.put(whiteboardManager.getUsername(),whiteboardManager);
+    }
+    public synchronized void addChatMessage(ChatMessage message){
+        chatBoard.add(message);
+    }
+    public synchronized void addShapes(MyShape shape){whiteboard.addShape(shape);}
+    public synchronized void addTexts(MyText text){whiteboard.addText(text);}
+
+    public synchronized void setShapes(ArrayList<MyShape> shapes){
+        whiteboard.setShapes(shapes);
     }
 
-    public void addChatMessage(String sender,String message){
-        ChatMessage chatMessage = new ChatMessage(sender,message);
-        chatBoard.add(chatMessage);
-        System.out.println("notifying all clients in this room");
-        notifyClients(chatMessage);
+    public synchronized void setTexts(ArrayList<MyText> texts){
+        whiteboard.setTexts(texts);
     }
-
+    public ArrayList<MyShape> getShapeList(){
+        return whiteboard.getShapes();
+    }
+    public ArrayList<MyText> getTextList(){
+        return whiteboard.getTexts();
+    }
     public ArrayList<ChatMessage> getChatBoard(){
         System.out.println(chatBoard);
         return  chatBoard;
     }
+    public ArrayList<String> getUsersInRoom(){
 
-    private void notifyClients(ChatMessage chatMessage){
-        for (WhiteboardClient client : roomClients){
-            client.updateChatBoard(chatMessage);
-        }
+        ArrayList<String> usernames = new ArrayList<>(clientHashMap.keySet());
+        return usernames;
+    }
+    public void addClientInRoom(WhiteboardClient client){
+        clientHashMap.put(client.getUsername(),client);
+    }
+    public void removeClientInRoom(String username){
+        clientHashMap.remove(username);
+    }
+    public WhiteboardClient getSpecificClient(String username){
+        return clientHashMap.get(username);
+    }
+
+    public boolean checkUsernameExist(String username){
+       if (clientHashMap.get(username)!=null){
+           return true;
+       }
+       return false;
     }
 }
