@@ -1,20 +1,18 @@
 package gui;
 
-import application.WhiteboardApp;
 import application.WhiteboardManagerApp;
 import constant.PopUpDialog;
 import models.ChatMessage;
+import server.remoteObject.IRemoteObserver;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D;
-import java.awt.geom.Path2D;
-import java.awt.geom.Rectangle2D;
+import java.awt.geom.*;
 import java.io.IOException;
+import java.io.Serializable;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.time.format.DateTimeFormatter;
@@ -22,8 +20,10 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 
-public class WhiteboardGUI implements  ActionListener, ChangeListener {
-    private JFrame frame;
+
+
+public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
+    private final JFrame frame;
     private final JButton colorButton;
     private final JSlider sizeSlider;
     private final JButton lineButton;
@@ -33,6 +33,7 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
     private final JButton freeHandButton;
     private final JButton fontButton;
     private final JButton eraserButton;
+    private final JButton clearButton,fileButton;
     private String currentShape = "None";
     private Color currentColor = Color.BLACK;
     private int penSize = 5;
@@ -40,14 +41,15 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
     private PaintSurface paintSurface;
     private JPanel userPanel;
     private JList<String> userList;
-    private WhiteboardApp whiteboardApp;
     private JTextArea chatArea;
-    public DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+    private WhiteboardManagerApp whiteboardManagerApp;
 
-    public WhiteboardGUI(WhiteboardApp whiteboardApp) throws RemoteException {
-        this.whiteboardApp = whiteboardApp;
+    public WhiteboardManagerGUI(WhiteboardManagerApp whiteboardManagerApp) throws RemoteException {
+        this.whiteboardManagerApp = whiteboardManagerApp;
+
+
         frame = new JFrame();
-        frame.setTitle("Whiteboard Client");
+        frame.setTitle("Whiteboard");
 
         // Set the size of the window
         frame.setSize(1000, 800);
@@ -58,13 +60,11 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
             @Override
             public void windowClosing(WindowEvent e) {
                 try {
-                    whiteboardApp.unRegisterClient();
+                    whiteboardManagerApp.closeRoom();
                 } catch (IOException ex) {
-                    popConnectionDialog();
-                    throw new RuntimeException(ex);
-                } catch (NotBoundException ex) {
-                    popConnectionDialog();
-                    throw new RuntimeException(ex);
+                }
+                finally {
+                    System.exit(0);
                 }
             }
         });
@@ -103,6 +103,12 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
         eraserButton = new JButton("Eraser");
         eraserButton.addActionListener(this);
 
+        clearButton = new JButton("Clear All");
+        clearButton.addActionListener(this);
+        fileButton = new JButton("File");
+        fileButton.addActionListener(this);
+
+
 
         // Add components to the content pane
         Container contentPane = frame.getContentPane();
@@ -120,19 +126,10 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
         buttonPanel.add(freeHandButton);
         buttonPanel.add(fontButton);
         buttonPanel.add(eraserButton);
+        buttonPanel.add(clearButton);
+        buttonPanel.add(fileButton);
 
         contentPane.add(buttonPanel, BorderLayout.NORTH);
-
-
-        try {
-            IWhiteboardGUIUpdater whiteboardGUIUpdater = new WhiteboardGUIUpdater(this);
-            RemoteObserver remoteObserver = new RemoteObserver(whiteboardGUIUpdater);
-            whiteboardApp.registerObserver(remoteObserver);
-            System.out.println("remote observer done");
-        } catch (RemoteException e) {
-            popConnectionDialog();
-            throw new RuntimeException(e);
-        }
 
         // add chat area
         JPanel chatPanel = new JPanel(new BorderLayout());
@@ -143,46 +140,44 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
         JTextField chatInput = new JTextField();
         chatInput.setPreferredSize(new Dimension(800,50));
         JButton sendButton = new JButton("Send");
-        sendButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String message = chatInput.getText();
-                System.out.println("sending message to server: " + message);
-                // Do something with the message, e.g. send to server
-                try {
-                    whiteboardApp.sendMessage(message);
-                } catch (RemoteException ex) {
-                    popConnectionDialog();
-                    throw new RuntimeException(ex);
-                }
-                chatInput.setText("");
-
+        sendButton.addActionListener(e -> {
+            String message = chatInput.getText();
+            System.out.println("sending message to server: " + message);
+            // Do something with the message, e.g. send to server
+            try {
+                whiteboardManagerApp.sendMessage(message);
+            } catch (RemoteException ex) {
+                popConnectionDialog();
+                throw new RuntimeException(ex);
             }
-        });
+            chatInput.setText("");
 
+        });
         JPanel chatInputPanel = new JPanel(new BorderLayout());
         chatInputPanel.add(chatInput, BorderLayout.CENTER);
         chatInputPanel.add(sendButton, BorderLayout.EAST);
         chatPanel.add(chatScrollPane, BorderLayout.CENTER);
         chatPanel.add(chatInputPanel, BorderLayout.SOUTH);
         contentPane.add(chatPanel, BorderLayout.SOUTH);
-        if (whiteboardApp.getChatMessages()!=null){
-            ArrayList<ChatMessage> currentChat = whiteboardApp.getChatMessages();
-            for (ChatMessage chatMessage :currentChat){
-                String text = chatMessage.getTimeStamp()+" "+chatMessage.getSender() + ": " + chatMessage.getContent() + "\n";
-                chatArea.append(text);
-            }
 
+        try {
+            IWhiteboardGUIUpdater whiteboardGUIUpdater = new WhiteboardManagerGUIUpdater(this);
+            RemoteObserver remoteObserver = new RemoteObserver(whiteboardGUIUpdater);
+            whiteboardManagerApp.registerObserver(remoteObserver);
+        } catch (RemoteException e) {
+            PopUpDialog.showErrorMessageDialog("Connecting to manager failed, please restart the app then try again");
+            throw new RuntimeException(e);
         }
 
-        // add user to the list
+
+        // user list panel
         try{
             userPanel = new JPanel(new BorderLayout());
-            JLabel roomLabel = new JLabel("Room" + whiteboardApp.getRoomId());
+            JLabel roomLabel = new JLabel("Room" + whiteboardManagerApp.getRoomId());
             roomLabel.setHorizontalAlignment(JLabel.CENTER);
             userPanel.add(roomLabel, BorderLayout.NORTH);
             userList = new JList<>();
-            updateUserList(whiteboardApp.getUserInRoom());
+            updateUserList(whiteboardManagerApp.getUserInRoom());
             JScrollPane scrollPane = new JScrollPane(userList); // wrap the JList in a JScrollPane
             userPanel.add(scrollPane, BorderLayout.CENTER);
             userPanel.setPreferredSize(new Dimension(200, 800));
@@ -198,18 +193,17 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
 
         // Show the window
         frame.setVisible(true);
-
     }
 
     private class PaintSurface extends JComponent {
-
-        protected ArrayList<MyShape> shapes = whiteboardApp.getAllShapes() == null ? new ArrayList<>() : whiteboardApp.getAllShapes();
-        protected ArrayList<MyText> texts = whiteboardApp.getAllTexts() == null ? new ArrayList<>() : whiteboardApp.getAllTexts();
+        protected ArrayList<MyShape> shapes = new ArrayList<>();
+        protected ArrayList<MyText> texts = new ArrayList<>();
         Point startDrag, endDrag;
         Path2D.Float path = new Path2D.Float();
 
-        public PaintSurface() throws RemoteException {
+        public PaintSurface() {
             setLayout(new GridBagLayout());
+            // Create the text field
 
             this.addMouseListener(new MouseAdapter() {
                 public void mousePressed(MouseEvent e) {
@@ -229,7 +223,8 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
                         MyShape myShape = new MyShape(line,currentColor,penSize);
                         shapes.add(myShape);
 
-                    } else if (Objects.equals(currentShape, "Circle") || Objects.equals(currentShape, "Oval")) {
+                    }
+                    else if (Objects.equals(currentShape, "Circle") || Objects.equals(currentShape, "Oval")) {
                         Ellipse2D.Float circle = makeEllipse(startDrag.x, startDrag.y, e.getX(), e.getY());
                         MyShape myShape = new MyShape(circle,currentColor,penSize);
                         shapes.add(myShape);
@@ -240,14 +235,14 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
                         MyShape myShape = new MyShape(r,currentColor,penSize);
                         shapes.add(myShape);
 
-                    }else {
+                    }
+                    else {
                         MyShape myShape = new MyShape(path,currentColor,penSize);
                         shapes.add(myShape);
                         path=new Path2D.Float();
                     }
-
                     try {
-                        whiteboardApp.sendShape(shapes);
+                        whiteboardManagerApp.sendShape(shapes);
                     } catch (RemoteException ex) {
                         popConnectionDialog();
                         throw new RuntimeException(ex);
@@ -355,6 +350,38 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
             g2.setStroke(new BasicStroke(penSize));
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.50f));
 
+            // iterate over the shapes and remove the ones that intersect with the eraser
+            if (startDrag != null && endDrag != null && Objects.equals(currentShape, "Eraser")) {
+                Area eraser = new Area(makeRectangle(startDrag.x, startDrag.y, endDrag.x, endDrag.y));
+                for (int i = shapes.size() - 1; i >= 0; i--) {
+                    MyShape s = shapes.get(i);
+                    if (s.getShape() instanceof Rectangle2D.Float) {
+                        if (eraser.intersects(s.getShape().getBounds2D())) {
+                            shapes.remove(i);
+                        }
+                    } else if (s.getShape() instanceof Ellipse2D.Float) {
+                        if (eraser.intersects(s.getShape().getBounds2D())) {
+                            shapes.remove(i);
+                        }
+                    } else if (s.getShape() instanceof Line2D.Float) {
+                        if (eraser.intersects(s.getShape().getBounds2D())) {
+                            shapes.remove(i);
+                        }
+                    } else {
+                        Area shapeArea = new Area(s.getShape());
+                        shapeArea.intersect(eraser);
+                        if (!shapeArea.isEmpty()) {
+                            shapes.remove(i);
+                        }
+                    }
+                }
+                try {
+                    whiteboardManagerApp.sendShape(shapes);
+                } catch (RemoteException e) {
+                    popConnectionDialog();
+                    throw new RuntimeException(e);
+                }
+            }
             for (MyShape s : shapes) {
                 g2.setPaint(currentColor);
                 if (s.getShape() instanceof Rectangle2D.Float) {
@@ -402,23 +429,21 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
                 else if (Objects.equals(currentShape,"Rectangle")){
                     Shape r = makeRectangle(startDrag.x, startDrag.y, endDrag.x, endDrag.y);
                     g2.draw(r);
-                }else{
+                }
+                else{
                     MyShape myShape = new MyShape(path,currentColor,penSize);
                     shapes.add(myShape);
                     try {
-                        whiteboardApp.sendShape(shapes);
+                        whiteboardManagerApp.sendShape(shapes);
                     } catch (RemoteException e) {
                         popConnectionDialog();
                         throw new RuntimeException(e);
                     }
                     g2.draw(path);
                 }
-
-
-
             }
-        }
 
+        }
         private Ellipse2D.Float makeEllipse(int x1, int y1, int x2, int y2) {
             if (currentShape.equals("Circle")){
                 int diameter = Math.min(Math.abs(x1 - x2), Math.abs(y1 - y2));
@@ -430,41 +455,35 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
             Ellipse2D.Float ellipse = new Ellipse2D.Float(Math.min(x1, x2), Math.min(y1, y2), Math.abs(x1 - x2), Math.abs(y1 - y2));
             return ellipse;
         }
-
         private Rectangle2D.Float makeRectangle(int x1, int y1, int x2, int y2) {
             Rectangle2D.Float rect = new Rectangle2D.Float(Math.min(x1, x2), Math.min(y1, y2), Math.abs(x1 - x2), Math.abs(y1 - y2));
             return rect;
         }
-
         private Line2D.Float makeLine(int x1, int y1, int x2, int y2) {
             Line2D.Float line = new Line2D.Float(x1, y1, x2, y2);
             return line;
         }
-
         private void addText(String text, Color color, int penSize, int x1, int y1) throws RemoteException {
             System.out.println(text+" "+x1+" "+y1);
             MyText myText = new MyText(text,color,penSize,x1,y1,currentFont);
             texts.add(myText);
-            whiteboardApp.sendText(texts);
+            whiteboardManagerApp.sendText(texts);
         }
-
-        private void clearAll(){
+        private void clearAll() throws RemoteException {
             shapes = new ArrayList<>();
             texts = new ArrayList<>();
+            whiteboardManagerApp.sendShape(shapes);
+            whiteboardManagerApp.sendText(texts);
             repaint();
         }
-
         private void changeShape(ArrayList<MyShape> myShapes){
             shapes = myShapes;
             repaint();
         }
-
         private void changeText(ArrayList<MyText> myTexts){
             texts = myTexts;
             repaint();
         }
-
-
 
     }
     @Override
@@ -488,8 +507,28 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
             currentFont = FontChooser.showFontChooser();
             System.out.println(currentFont);
         } else if(source == eraserButton){
-            currentColor = Color.white;
+            currentShape = "Eraser";
+            penSize = 10;
+            paintSurface.repaint();
             System.out.println("erasing");
+        }else if(source == clearButton) {
+            try {
+                paintSurface.clearAll();
+            } catch (RemoteException ex) {
+                popConnectionDialog();
+                throw new RuntimeException(ex);
+            }
+        }else if (source == fileButton){
+            int action = popFileDialog();
+            if(action == 3){
+                try {
+                    whiteboardManagerApp.closeRoom();
+                    frame.dispose();
+                    System.exit(0);
+                } catch (RemoteException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
         }
     }
     @Override
@@ -509,6 +548,13 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
     public void updateTextList(ArrayList<MyText> myTexts){
         paintSurface.changeText(myTexts);
     }
+    public boolean popJoinDialog(String username){
+        System.out.println("this happening ");
+        int option = JOptionPane.showConfirmDialog(null,
+                username + " wants to join room" + ". Do you want to allow this?",
+                "Confirm Join Request", JOptionPane.YES_NO_OPTION);
+        return option == JOptionPane.YES_OPTION;
+    }
     public void popConnectionDialog(){
         JOptionPane.showMessageDialog(frame,
                 "Connection lost. Check Server Status! Closing the application.",
@@ -517,6 +563,15 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
 
         // Close the frame
         frame.dispose();
+        // exit the program
         System.exit(1);
     }
+    public int popFileDialog(){
+        String[] options = {"Save Current Whiteboard", "Load Previous Whiteboard", "New Whiteboard", "Close Room"};
+        int result = JOptionPane.showOptionDialog(frame, "Select an option", "Options",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                null, options, options[0]);
+        return result;
+    }
+
 }

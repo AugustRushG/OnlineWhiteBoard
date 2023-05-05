@@ -9,13 +9,10 @@ public class WhiteboardClient implements Serializable {
 
     private String username;
     private int roomID;
-
-
     private ArrayList<ChatMessage> chatMessages;
 
-    public WhiteboardClient(String username, int roomID) throws IOException, NotBoundException {
+    public WhiteboardClient(String username) throws IOException, NotBoundException {
         this.username = username;
-        this.roomID = roomID;
         this.chatMessages = new ArrayList<>();
 
     }
@@ -27,6 +24,9 @@ public class WhiteboardClient implements Serializable {
                 '}';
     }
 
+    public void setRoomID(int roomID){
+        this.roomID = roomID;
+    }
     public int getRoomID() {
         return roomID;
     }
@@ -35,14 +35,4 @@ public class WhiteboardClient implements Serializable {
         return username;
     }
 
-    public void updateChatBoard(ChatMessage message){
-        chatMessages.add(message);
-        System.out.println(chatMessages);
-        System.out.println("got message from server "+message);
-    }
-
-    public ArrayList<ChatMessage> getChatMessages(){
-        System.out.println(chatMessages);
-        return chatMessages;
-    }
 }
