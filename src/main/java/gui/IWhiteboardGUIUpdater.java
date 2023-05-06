@@ -12,4 +12,6 @@ public interface IWhiteboardGUIUpdater extends Remote {
     void updateTexts(ArrayList<MyText> texts) throws RemoteException;
     boolean popJoinDialog(String username) throws RemoteException;
     void notifyRoomClose() throws RemoteException;
+    void notifyUserBeenKicked() throws RemoteException;
+    void notifyServerClosing() throws RemoteException;
 }

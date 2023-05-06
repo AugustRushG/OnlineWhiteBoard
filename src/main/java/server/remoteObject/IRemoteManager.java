@@ -32,4 +32,5 @@ public interface IRemoteManager extends IRemoteObserver {
     HashMap<String, IRemoteClient> getClientMap() throws RemoteException;
     boolean confirmClientJoin(String username) throws RemoteException;
     boolean checkUsernameExisted(String username) throws RemoteException;
+    void kickUser(String username) throws RemoteException;
 }

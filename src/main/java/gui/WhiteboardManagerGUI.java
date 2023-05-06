@@ -178,6 +178,24 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
             userPanel.add(roomLabel, BorderLayout.NORTH);
             userList = new JList<>();
             updateUserList(whiteboardManagerApp.getUserInRoom());
+            String[] options = {"Kick User"," "};
+            userList.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent evt) {
+                    if (evt.getClickCount() == 2) {
+                        // Double-click detected
+                        String selectedUser = (String) userList.getSelectedValue();
+                        int result = JOptionPane.showOptionDialog(null,"Select action to user","Actions",
+                                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                                null, options, options[0]);
+                        if (result ==0) {
+                            try {
+                                kickUser(selectedUser);
+                            } catch (RemoteException e) {
+                            }
+                        }
+                    }
+                }
+            });
             JScrollPane scrollPane = new JScrollPane(userList); // wrap the JList in a JScrollPane
             userPanel.add(scrollPane, BorderLayout.CENTER);
             userPanel.setPreferredSize(new Dimension(200, 800));
@@ -549,7 +567,7 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
         paintSurface.changeText(myTexts);
     }
     public boolean popJoinDialog(String username){
-        System.out.println("this happening ");
+        System.out.println("User "+username +" trying to join the room");
         int option = JOptionPane.showConfirmDialog(null,
                 username + " wants to join room" + ". Do you want to allow this?",
                 "Confirm Join Request", JOptionPane.YES_NO_OPTION);
@@ -572,6 +590,10 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
                 JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
                 null, options, options[0]);
         return result;
+    }
+
+    public void kickUser(String username) throws RemoteException {
+        whiteboardManagerApp.kickUser(username);
     }
 
 }

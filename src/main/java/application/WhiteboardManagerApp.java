@@ -42,5 +42,8 @@ public class WhiteboardManagerApp{
     public void closeRoom() throws RemoteException{
         remoteManager.notifyRoomClose();
     }
+    public void kickUser(String username) throws RemoteException{
+        remoteManager.kickUser(username);
+    }
 
 }

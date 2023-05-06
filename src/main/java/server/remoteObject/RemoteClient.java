@@ -123,4 +123,14 @@ public class RemoteClient extends UnicastRemoteObject implements IRemoteClient{
     public void notifyRoomClose() throws RemoteException {
         remoteObserver.notifyRoomClose();
     }
+
+    @Override
+    public void notifyUserBeenKicker() throws RemoteException {
+        remoteObserver.notifyUserBeenKicker();
+    }
+
+    @Override
+    public void notifyServerClosing() throws RemoteException {
+        remoteObserver.notifyServerClosing();
+    }
 }

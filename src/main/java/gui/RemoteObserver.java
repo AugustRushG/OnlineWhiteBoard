@@ -39,4 +39,14 @@ public class RemoteObserver implements IRemoteObserver, Serializable {
     public void notifyRoomClose() throws RemoteException {
         whiteboardGUIUpdater.notifyRoomClose();
     }
+
+    @Override
+    public void notifyUserBeenKicker() throws RemoteException {
+        whiteboardGUIUpdater.notifyUserBeenKicked();
+    }
+
+    @Override
+    public void notifyServerClosing() throws RemoteException {
+        whiteboardGUIUpdater.notifyServerClosing();
+    }
 }

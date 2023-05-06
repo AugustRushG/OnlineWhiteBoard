@@ -19,7 +19,7 @@ public class CreateWhiteboard {
 
         try{
             // bind remote objects
-            Registry registry = LocateRegistry.getRegistry(serverAddress);
+            Registry registry = LocateRegistry.getRegistry("192.168.20.12");
             IRemoteManager remoteManager = (IRemoteManager) registry.lookup(RegistryConstant.REMOTE_MANAGER);
 
             try {

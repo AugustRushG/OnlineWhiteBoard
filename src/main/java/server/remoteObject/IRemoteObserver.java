@@ -16,4 +16,6 @@ public interface IRemoteObserver extends Remote {
     void notifyTextsChange(ArrayList<MyText> texts) throws RemoteException;
     boolean notifyJoinRequest(String username) throws RemoteException;
     void notifyRoomClose() throws RemoteException;
+    void notifyUserBeenKicker() throws RemoteException;
+    void notifyServerClosing() throws RemoteException;
 }

@@ -4,17 +4,13 @@ import gui.MyShape;
 import gui.MyText;
 import models.ChatMessage;
 import models.WhiteboardClient;
-import models.WhiteboardManager;
 import server.Server;
-
-import javax.swing.*;
 import java.io.IOException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class RemoteManager extends UnicastRemoteObject implements IRemoteManager, IRemoteObserver {
@@ -131,13 +127,22 @@ public class RemoteManager extends UnicastRemoteObject implements IRemoteManager
         return server.checkUsernameExisted(username,roomID);
     }
 
+    @Override
+    public void kickUser(String username) throws RemoteException {
+        System.out.println("user "+username+" been kicked");
+        server.removeClientInRoom(username,roomID);
+        IRemoteClient remoteClient = clientMap.get(username);
+        remoteClient.notifyUserBeenKicker();
+        clientMap.remove(username);
+        System.out.println("Client " + username + " being kicked by manager.");
+    }
+
 
     @Override
     public void notifyNewMessage(ChatMessage message) throws RemoteException {
         System.out.println("notifying message to manager" + username);
         observer.notifyNewMessage(message);
         for (Map.Entry<String, IRemoteClient> entry : clientMap.entrySet()) {
-            String clientName = entry.getKey();
             IRemoteClient client = entry.getValue();
             // Do something with the clientName and client
             client.notifyNewMessage(message);
@@ -149,7 +154,6 @@ public class RemoteManager extends UnicastRemoteObject implements IRemoteManager
         System.out.println("manager user are " + users);
         observer.notifyUserChange(users);
         for (Map.Entry<String, IRemoteClient> entry : clientMap.entrySet()) {
-            String clientName = entry.getKey();
             IRemoteClient client = entry.getValue();
             // Do something with the clientName and client
             client.notifyUserChange(users);
@@ -160,7 +164,6 @@ public class RemoteManager extends UnicastRemoteObject implements IRemoteManager
     public void notifyShapeChange(ArrayList<MyShape> shapes) throws RemoteException {
         observer.notifyShapeChange(shapes);
         for (Map.Entry<String, IRemoteClient> entry : clientMap.entrySet()) {
-            String clientName = entry.getKey();
             IRemoteClient client = entry.getValue();
             // Do something with the clientName and client
             client.notifyShapeChange(shapes);
@@ -171,7 +174,6 @@ public class RemoteManager extends UnicastRemoteObject implements IRemoteManager
     public void notifyTextsChange(ArrayList<MyText> texts) throws RemoteException {
         observer.notifyTextsChange(texts);
         for (Map.Entry<String, IRemoteClient> entry : clientMap.entrySet()) {
-            String clientName = entry.getKey();
             IRemoteClient client = entry.getValue();
             // Do something with the clientName and client
             client.notifyTextsChange(texts);
@@ -186,10 +188,25 @@ public class RemoteManager extends UnicastRemoteObject implements IRemoteManager
     @Override
     public void notifyRoomClose() throws RemoteException {
         for (Map.Entry<String, IRemoteClient> entry : clientMap.entrySet()) {
-            String clientName = entry.getKey();
             IRemoteClient client = entry.getValue();
             // Do something with the clientName and client
             client.notifyRoomClose();
+        }
+        server.closeRoom(roomID);
+    }
+
+    @Override
+    public void notifyUserBeenKicker() throws RemoteException {
+
+    }
+
+    @Override
+    public void notifyServerClosing() throws RemoteException {
+        observer.notifyServerClosing();
+        for (Map.Entry<String, IRemoteClient> entry : clientMap.entrySet()) {
+            IRemoteClient client = entry.getValue();
+            // Do something with the clientName and client
+            client.notifyServerClosing();
         }
     }
 }
