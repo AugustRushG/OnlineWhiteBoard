@@ -5,7 +5,7 @@
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/src/main/java/server/META-INF/MANIFEST.MF" />
       </element>
-      <element id="module-output" name="DS_A2_OnlineWhiteBoard" />
+      <element id="module-output" name="OnlineWhiteBoard" />
     </root>
   </artifact>
 </component>
