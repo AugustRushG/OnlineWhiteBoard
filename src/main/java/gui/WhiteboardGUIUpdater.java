@@ -2,6 +2,8 @@ package gui;
 
 import constant.PopUpDialog;
 
+import java.io.IOException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -50,7 +52,8 @@ public class WhiteboardGUIUpdater extends UnicastRemoteObject implements IWhiteb
     }
 
     @Override
-    public void notifyUserBeenKicked() throws RemoteException {
+    public void notifyUserBeenKicked() throws IOException, NotBoundException {
+        whiteboardGUI.unRegisterClient();
         PopUpDialog.showErrorMessageDialog("You have been kicked out by the manager, closing the application now");
     }
 

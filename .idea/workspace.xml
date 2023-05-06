@@ -11,20 +11,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="06680185-165e-4e53-8000-00e0d7013382" name="Changes" comment="Complete most part">
+    <list default="true" id="06680185-165e-4e53-8000-00e0d7013382" name="Changes" comment="Add in more try and catch">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/DS_A2_CreateWhiteboard_jar/CreateWhiteboard.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/DS_A2_CreateWhiteboard_jar/CreateWhiteboard.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/OnlineWhiteBoard_Server_jar/OnlineWhiteBoard_Server.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/OnlineWhiteBoard_Server_jar/OnlineWhiteBoard_Server.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/application/WhiteboardManagerApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/WhiteboardManagerApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/CreateWhiteboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/CreateWhiteboard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/DrawingComponent.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/gui/IWhiteboardGUIUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/IWhiteboardGUIUpdater.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/gui/RemoteObserver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/RemoteObserver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/ServerGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/ServerGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/WhiteboardGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/WhiteboardGUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/gui/WhiteboardGUIUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/WhiteboardGUIUpdater.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/gui/WhiteboardManagerGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/WhiteboardManagerGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/WhiteboardManagerGUIUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/WhiteboardManagerGUIUpdater.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Room.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/Whiteboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Whiteboard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/Server.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/server/remoteObject/IRemoteManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/remoteObject/IRemoteManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/server/remoteObject/IRemoteObserver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/remoteObject/IRemoteObserver.java" afterDir="false" />
@@ -154,7 +151,7 @@
       <workItem from="1682328843066" duration="5221000" />
       <workItem from="1682426109898" duration="11414000" />
       <workItem from="1683088771342" duration="72650000" />
-      <workItem from="1683336256969" duration="428000" />
+      <workItem from="1683336256969" duration="5731000" />
     </task>
     <task id="LOCAL-00001" summary="Complete UI for whiteboard">
       <created>1682986677591</created>
@@ -177,7 +174,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683295329885</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Add in more try and catch">
+      <created>1683336719438</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1683336719438</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -199,7 +203,8 @@
     <MESSAGE value="Complete UI for whiteboard" />
     <MESSAGE value="Complete basic logic for creating Whiteboard" />
     <MESSAGE value="Complete most part" />
-    <option name="LAST_COMMIT_MESSAGE" value="Complete most part" />
+    <MESSAGE value="Add in more try and catch" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add in more try and catch" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

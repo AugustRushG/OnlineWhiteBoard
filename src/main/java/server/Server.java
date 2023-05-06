@@ -94,6 +94,12 @@ public class Server {
         roomManager.notifyUserChange(room.getUsersInRoom());
         serverGUI.updateRoomList();
     }
+
+    public void kickClientInRoom(String username, int roomID){
+        Room room = roomMap.get(roomID);
+        room.removeClientInRoom(username);
+        serverGUI.updateRoomList();
+    }
     public boolean checkUsernameExisted(String username, int roomID){
         Room room = roomMap.get(roomID);
         return room.checkUsernameExist(username);

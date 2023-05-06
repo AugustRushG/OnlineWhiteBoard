@@ -128,12 +128,12 @@ public class RemoteManager extends UnicastRemoteObject implements IRemoteManager
     }
 
     @Override
-    public void kickUser(String username) throws RemoteException {
+    public void kickUser(String username) throws IOException, NotBoundException {
         System.out.println("user "+username+" been kicked");
-        server.removeClientInRoom(username,roomID);
         IRemoteClient remoteClient = clientMap.get(username);
         remoteClient.notifyUserBeenKicker();
         clientMap.remove(username);
+        server.removeClientInRoom(username,roomID);
         System.out.println("Client " + username + " being kicked by manager.");
     }
 
