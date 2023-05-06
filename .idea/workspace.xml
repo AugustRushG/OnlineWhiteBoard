@@ -11,15 +11,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="06680185-165e-4e53-8000-00e0d7013382" name="Changes" comment="Add in jar">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_29_04_2023_5_13_pm__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/CreateWhiteboard_jar/CreateWhiteboard.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/CreateWhiteboard_jar/CreateWhiteboard.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/JoinWhiteboard_jar/JoinWhiteboard.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/JoinWhiteboard_jar/JoinWhiteboard.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/OnlineWhiteBoard_Server_jar/OnlineWhiteBoard_Server.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/OnlineWhiteBoard_Server_jar/OnlineWhiteBoard_Server.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/WhiteboardGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/WhiteboardGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/WhiteboardManagerGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/WhiteboardManagerGUI.java" afterDir="false" />
-    </list>
+    <list default="true" id="06680185-165e-4e53-8000-00e0d7013382" name="Changes" comment="Update on some logic" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -144,7 +136,7 @@
       <workItem from="1682426109898" duration="11414000" />
       <workItem from="1683088771342" duration="72650000" />
       <workItem from="1683336256969" duration="6456000" />
-      <workItem from="1683358458124" duration="3887000" />
+      <workItem from="1683358458124" duration="4238000" />
     </task>
     <task id="LOCAL-00001" summary="Complete UI for whiteboard">
       <created>1682986677591</created>
@@ -202,7 +194,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683358508710</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Update on some logic">
+      <created>1683372616594</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1683372616594</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -229,7 +228,8 @@
     <MESSAGE value="Add in JoinWhiteboard.jar" />
     <MESSAGE value="Changed name for better understanding" />
     <MESSAGE value="Add in jar" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add in jar" />
+    <MESSAGE value="Update on some logic" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update on some logic" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
