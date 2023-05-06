@@ -1,11 +1,11 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="DS_A2_JoinWhiteboard:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/DS_A2_JoinWhiteboard_jar</output-path>
+  <artifact type="jar" name="JoinWhiteboard:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/JoinWhiteboard_jar</output-path>
     <root id="archive" name="JoinWhiteboard.jar">
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/out/META-INF/MANIFEST.MF" />
       </element>
-      <element id="module-output" name="DS_A2_OnlineWhiteBoard" />
+      <element id="module-output" name="OnlineWhiteBoard" />
     </root>
   </artifact>
 </component>

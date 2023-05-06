@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="DS_A2_CreateWhiteboard:jar" />
-      <artifact name="DS_A2_JoinWhiteboard:jar" />
+      <artifact name="CreateWhiteboard:jar" />
+      <artifact name="JoinWhiteboard:jar" />
       <artifact name="OnlineWhiteBoard_Server:jar" />
     </artifacts-to-build>
   </component>
@@ -11,23 +11,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="06680185-165e-4e53-8000-00e0d7013382" name="Changes" comment="Add in more try and catch">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/DS_A2_CreateWhiteboard_jar/CreateWhiteboard.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/DS_A2_CreateWhiteboard_jar/CreateWhiteboard.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/OnlineWhiteBoard_Server_jar/OnlineWhiteBoard_Server.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/OnlineWhiteBoard_Server_jar/OnlineWhiteBoard_Server.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/application/WhiteboardManagerApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/WhiteboardManagerApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/IWhiteboardGUIUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/IWhiteboardGUIUpdater.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/RemoteObserver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/RemoteObserver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/WhiteboardGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/WhiteboardGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/WhiteboardGUIUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/WhiteboardGUIUpdater.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/WhiteboardManagerGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/WhiteboardManagerGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/Whiteboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Whiteboard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/remoteObject/IRemoteManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/remoteObject/IRemoteManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/remoteObject/IRemoteObserver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/remoteObject/IRemoteObserver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/remoteObject/RemoteClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/remoteObject/RemoteClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/remoteObject/RemoteManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/remoteObject/RemoteManager.java" afterDir="false" />
-    </list>
+    <list default="true" id="06680185-165e-4e53-8000-00e0d7013382" name="Changes" comment="Update on some logic" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -78,7 +62,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
@@ -94,7 +78,7 @@
   <component name="RunManager" selected="Application.CreateWhiteboard">
     <configuration name="CreateWhiteboard" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="client.CreateWhiteboard" />
-      <module name="DS_A2_OnlineWhiteBoard" />
+      <module name="OnlineWhiteBoard" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="models.*" />
@@ -107,7 +91,7 @@
     </configuration>
     <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="server.Server" />
-      <module name="DS_A2_OnlineWhiteBoard" />
+      <module name="OnlineWhiteBoard" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="models.*" />
@@ -120,7 +104,7 @@
     </configuration>
     <configuration name="WhiteboardManagerApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="application.WhiteboardManagerApp" />
-      <module name="DS_A2_OnlineWhiteBoard" />
+      <module name="OnlineWhiteBoard" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value=".*" />
@@ -151,7 +135,8 @@
       <workItem from="1682328843066" duration="5221000" />
       <workItem from="1682426109898" duration="11414000" />
       <workItem from="1683088771342" duration="72650000" />
-      <workItem from="1683336256969" duration="5731000" />
+      <workItem from="1683336256969" duration="6456000" />
+      <workItem from="1683358458124" duration="4238000" />
     </task>
     <task id="LOCAL-00001" summary="Complete UI for whiteboard">
       <created>1682986677591</created>
@@ -181,7 +166,42 @@
       <option name="project" value="LOCAL" />
       <updated>1683336719438</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Complete most">
+      <created>1683347588524</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1683347588524</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Add in JoinWhiteboard.jar">
+      <created>1683358322435</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1683358322435</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Changed name for better understanding">
+      <created>1683358477549</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1683358477549</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Add in jar">
+      <created>1683358508709</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1683358508710</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Update on some logic">
+      <created>1683372616594</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1683372616594</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -204,15 +224,29 @@
     <MESSAGE value="Complete basic logic for creating Whiteboard" />
     <MESSAGE value="Complete most part" />
     <MESSAGE value="Add in more try and catch" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add in more try and catch" />
+    <MESSAGE value="Complete most" />
+    <MESSAGE value="Add in JoinWhiteboard.jar" />
+    <MESSAGE value="Changed name for better understanding" />
+    <MESSAGE value="Add in jar" />
+    <MESSAGE value="Update on some logic" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update on some logic" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/gui/WhiteboardGUI.java</url>
-          <line>213</line>
+          <line>210</line>
           <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/gui/WhiteboardManagerGUI.java</url>
+          <line>234</line>
+          <properties method="mouseReleased">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

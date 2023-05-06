@@ -227,14 +227,11 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
                 public void mousePressed(MouseEvent e) {
                     startDrag = new Point(e.getX(), e.getY());
                     endDrag = startDrag;
-
                     if(Objects.equals(currentShape,"None")){
                         path.moveTo(e.getX(),e.getY());
                     }
-
                     repaint();
                 }
-
                 public void mouseReleased(MouseEvent e) {
                     if (Objects.equals(currentShape, "Line")){
                         Line2D.Float line = makeLine(startDrag.x, startDrag.y, e.getX(), e.getY());
@@ -269,7 +266,6 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
                     endDrag = null;
                     repaint();
                 }
-
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     if (e.getClickCount() == 2) { // check if mouse was clicked twice
@@ -333,7 +329,6 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
                 }
             });
 
-
             this.addMouseMotionListener(new MouseMotionAdapter() {
                 public void mouseDragged(MouseEvent e) {
                     if (Objects.equals(currentShape, "None")) {
@@ -350,14 +345,10 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
             g2.setPaint(Color.LIGHT_GRAY);
             for (int i = 0; i < getSize().width; i += 10) {
                 Shape line = new Line2D.Float(i, 0, i, getSize().height);
+                Shape line1 = new Line2D.Float(0, i, getSize().width, i);
                 g2.draw(line);
+                g2.draw(line1);
             }
-
-            for (int i = 0; i < getSize().height; i += 10) {
-                Shape line = new Line2D.Float(0, i, getSize().width, i);
-                g2.draw(line);
-            }
-
 
         }
         public void paint(Graphics g) {
@@ -385,7 +376,8 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
                         if (eraser.intersects(s.getShape().getBounds2D())) {
                             shapes.remove(i);
                         }
-                    } else {
+                    }
+                    else {
                         Area shapeArea = new Area(s.getShape());
                         shapeArea.intersect(eraser);
                         if (!shapeArea.isEmpty()) {
@@ -429,7 +421,6 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
             for (MyText t : texts){
                 g2.setPaint(t.getColor());
                 g2.setFont(t.getFont());
-//                System.out.println("text now is "+t.getText()+"location is "+t.getX1()+""+t.getY1());
                 g2.drawString(t.getText(),t.getX1(),t.getY1());
             }
 
@@ -449,14 +440,14 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
                     g2.draw(r);
                 }
                 else{
-                    MyShape myShape = new MyShape(path,currentColor,penSize);
-                    shapes.add(myShape);
-                    try {
-                        whiteboardManagerApp.sendShape(shapes);
-                    } catch (RemoteException e) {
-                        popConnectionDialog();
-                        throw new RuntimeException(e);
-                    }
+//                    MyShape myShape = new MyShape(path,currentColor,penSize);
+//                    shapes.add(myShape);
+//                    try {
+//                        whiteboardManagerApp.sendShape(shapes);
+//                    } catch (RemoteException e) {
+//                        popConnectionDialog();
+//                        throw new RuntimeException(e);
+//                    }
                     g2.draw(path);
                 }
             }
@@ -473,6 +464,7 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
             Ellipse2D.Float ellipse = new Ellipse2D.Float(Math.min(x1, x2), Math.min(y1, y2), Math.abs(x1 - x2), Math.abs(y1 - y2));
             return ellipse;
         }
+
         private Rectangle2D.Float makeRectangle(int x1, int y1, int x2, int y2) {
             Rectangle2D.Float rect = new Rectangle2D.Float(Math.min(x1, x2), Math.min(y1, y2), Math.abs(x1 - x2), Math.abs(y1 - y2));
             return rect;

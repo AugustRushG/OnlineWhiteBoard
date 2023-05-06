@@ -202,11 +202,11 @@ public class RemoteManager extends UnicastRemoteObject implements IRemoteManager
 
     @Override
     public void notifyServerClosing() throws RemoteException {
-        observer.notifyServerClosing();
         for (Map.Entry<String, IRemoteClient> entry : clientMap.entrySet()) {
             IRemoteClient client = entry.getValue();
             // Do something with the clientName and client
             client.notifyServerClosing();
         }
+        observer.notifyServerClosing();
     }
 }
