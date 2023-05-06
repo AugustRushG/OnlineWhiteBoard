@@ -7,6 +7,8 @@ import models.ChatMessage;
 import server.remoteObject.IRemoteManager;
 import server.remoteObject.IRemoteObserver;
 
+import java.io.IOException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
@@ -41,6 +43,9 @@ public class WhiteboardManagerApp{
     }
     public void closeRoom() throws RemoteException{
         remoteManager.notifyRoomClose();
+    }
+    public void kickUser(String username) throws IOException, NotBoundException {
+        remoteManager.kickUser(username);
     }
 
 }

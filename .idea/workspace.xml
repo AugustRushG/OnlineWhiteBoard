@@ -11,36 +11,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="06680185-165e-4e53-8000-00e0d7013382" name="Changes" comment="Complete basic logic for creating Whiteboard">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/DS_A2_JoinWhiteboard_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/application/WhiteboardManagerApp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/client/JoinWhiteBoard.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/constant/PopUpDialog.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/gui/IWhiteboardGUIUpdater.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/gui/RemoteObserver.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/gui/WhiteboardGUIUpdater.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/gui/WhiteboardManagerGUI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/gui/WhiteboardManagerGUIUpdater.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/server/remoteObject/IRemoteObserver.java" afterDir="false" />
+    <list default="true" id="06680185-165e-4e53-8000-00e0d7013382" name="Changes" comment="Add in more try and catch">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/DS_A2_CreateWhiteboard_jar/CreateWhiteboard.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/DS_A2_CreateWhiteboard_jar/CreateWhiteboard.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/OnlineWhiteBoard_Server_jar/OnlineWhiteBoard_Server.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/OnlineWhiteBoard_Server_jar/OnlineWhiteBoard_Server.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/application/WhiteboardApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/WhiteboardApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/CreateWhiteboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/CreateWhiteboard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/MyShape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/MyShape.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/MyText.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/MyText.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/ServerGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/ServerGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/WhiteboardManagerApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/WhiteboardManagerApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/IWhiteboardGUIUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/IWhiteboardGUIUpdater.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/RemoteObserver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/RemoteObserver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/gui/WhiteboardGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/WhiteboardGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Room.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/WhiteboardGUIUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/WhiteboardGUIUpdater.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/WhiteboardManagerGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/WhiteboardManagerGUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/models/Whiteboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Whiteboard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/WhiteboardClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/WhiteboardClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/WhiteboardManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/WhiteboardManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/remoteObject/IRemoteClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/remoteObject/IRemoteClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/remoteObject/IRemoteDraw.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/server/remoteObject/IRemoteManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/remoteObject/IRemoteManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/remoteObject/IRemoteObserver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/remoteObject/IRemoteObserver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/server/remoteObject/RemoteClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/remoteObject/RemoteClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/remoteObject/RemoteDraw.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/server/remoteObject/RemoteManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/remoteObject/RemoteManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -81,24 +66,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/xu741/Documents/GitHub/DS_A2_OnlineWhiteBoard/out",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/xu741/Documents/GitHub/DS_A2_OnlineWhiteBoard/out&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="server" />
@@ -164,7 +150,8 @@
       <workItem from="1681885935004" duration="123000" />
       <workItem from="1682328843066" duration="5221000" />
       <workItem from="1682426109898" duration="11414000" />
-      <workItem from="1683088771342" duration="67571000" />
+      <workItem from="1683088771342" duration="72650000" />
+      <workItem from="1683336256969" duration="5731000" />
     </task>
     <task id="LOCAL-00001" summary="Complete UI for whiteboard">
       <created>1682986677591</created>
@@ -180,7 +167,21 @@
       <option name="project" value="LOCAL" />
       <updated>1683164731023</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Complete most part">
+      <created>1683295329885</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1683295329885</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Add in more try and catch">
+      <created>1683336719438</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1683336719438</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -201,7 +202,9 @@
     <MESSAGE value="Finish some structures" />
     <MESSAGE value="Complete UI for whiteboard" />
     <MESSAGE value="Complete basic logic for creating Whiteboard" />
-    <option name="LAST_COMMIT_MESSAGE" value="Complete basic logic for creating Whiteboard" />
+    <MESSAGE value="Complete most part" />
+    <MESSAGE value="Add in more try and catch" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add in more try and catch" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -213,5 +216,9 @@
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

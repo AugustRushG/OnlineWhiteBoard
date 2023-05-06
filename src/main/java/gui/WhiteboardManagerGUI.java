@@ -3,23 +3,23 @@ package gui;
 import application.WhiteboardManagerApp;
 import constant.PopUpDialog;
 import models.ChatMessage;
+import models.Whiteboard;
 import server.remoteObject.IRemoteObserver;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.*;
-import java.io.IOException;
-import java.io.Serializable;
+import java.io.*;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Objects;
-
-
+import java.util.Timer;
 
 
 public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
@@ -178,6 +178,24 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
             userPanel.add(roomLabel, BorderLayout.NORTH);
             userList = new JList<>();
             updateUserList(whiteboardManagerApp.getUserInRoom());
+            String[] options = {"Kick User"," "};
+            userList.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent evt) {
+                    if (evt.getClickCount() == 2) {
+                        // Double-click detected
+                        String selectedUser = (String) userList.getSelectedValue();
+                        int result = JOptionPane.showOptionDialog(null,"Select action to user","Actions",
+                                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                                null, options, options[0]);
+                        if (result ==0) {
+                            try {
+                                kickUser(selectedUser);
+                            } catch (IOException | NotBoundException e) {
+                            }
+                        }
+                    }
+                }
+            });
             JScrollPane scrollPane = new JScrollPane(userList); // wrap the JList in a JScrollPane
             userPanel.add(scrollPane, BorderLayout.CENTER);
             userPanel.setPreferredSize(new Dimension(200, 800));
@@ -484,6 +502,12 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
             texts = myTexts;
             repaint();
         }
+        private ArrayList<MyShape> getShapes(){
+            return shapes;
+        }
+        private ArrayList<MyText> getTexts(){
+            return texts;
+        }
 
     }
     @Override
@@ -528,6 +552,14 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
                 } catch (RemoteException ex) {
                     throw new RuntimeException(ex);
                 }
+            } else if (action == 0) {
+                Whiteboard whiteboard = new Whiteboard();
+                whiteboard.setTexts(paintSurface.getTexts());
+                whiteboard.setShapes(paintSurface.getShapes());
+                // Create an ObjectOutputStream with a FileOutputStream to write the whiteboard to a file
+                saveWhiteboard();
+            } else if (action == 1) {
+                loadWhiteboard();
             }
         }
     }
@@ -549,7 +581,7 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
         paintSurface.changeText(myTexts);
     }
     public boolean popJoinDialog(String username){
-        System.out.println("this happening ");
+        System.out.println("User "+username +" trying to join the room");
         int option = JOptionPane.showConfirmDialog(null,
                 username + " wants to join room" + ". Do you want to allow this?",
                 "Confirm Join Request", JOptionPane.YES_NO_OPTION);
@@ -573,5 +605,69 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
                 null, options, options[0]);
         return result;
     }
+    public void kickUser(String username) throws IOException, NotBoundException {
+        whiteboardManagerApp.kickUser(username);
+    }
+    private void saveWhiteboard() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Save Whiteboard");
+
+        int userSelection = fileChooser.showSaveDialog(frame);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File fileToSave = fileChooser.getSelectedFile();
+
+            if (!fileToSave.getName().endsWith(".ser")) {
+                JOptionPane.showMessageDialog(frame, "File name must end with \".ser\".");
+                return;
+            }
+
+            Whiteboard whiteboard = new Whiteboard();
+            whiteboard.setTexts(paintSurface.getTexts());
+            whiteboard.setShapes(paintSurface.getShapes());
+
+            try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(fileToSave))) {
+                outputStream.writeObject(whiteboard);
+                JOptionPane.showMessageDialog(null, "File name saved at "+ fileToSave.getAbsolutePath());
+                System.out.println("Whiteboard saved successfully to " + fileToSave.getAbsolutePath());
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                System.err.println("Error saving whiteboard: " + ex.getMessage());
+            }
+        }
+    }
+    private void loadWhiteboard() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(new File("."));
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Serialized Objects", "ser");
+        fileChooser.setFileFilter(filter);
+        int result = fileChooser.showOpenDialog(frame);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            try {
+                // Create an ObjectInputStream with a FileInputStream to read the whiteboard from a file
+                ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(selectedFile));
+                Whiteboard whiteboard = (Whiteboard) inputStream.readObject();
+                // Close the ObjectInputStream
+                inputStream.close();
+                // Set the whiteboard on the paint surface
+                paintSurface.changeText(whiteboard.getTexts());
+                paintSurface.changeShape(whiteboard.getShapes());
+                System.out.println("Whiteboard loaded successfully from " + selectedFile.getAbsolutePath());
+                try {
+                    whiteboardManagerApp.sendShape(whiteboard.getShapes());
+                    whiteboardManagerApp.sendText(whiteboard.getTexts());
+                } catch (RemoteException ex) {
+                    popConnectionDialog();
+                    throw new RuntimeException(ex);
+                }
+            } catch (IOException | ClassNotFoundException ex) {
+                ex.printStackTrace();
+                System.err.println("Error loading whiteboard: " + ex.getMessage());
+            }
+        }
+    }
+
+
 
 }

@@ -5,6 +5,8 @@ import gui.MyText;
 import models.ChatMessage;
 import server.Server;
 
+import java.io.IOException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -122,5 +124,15 @@ public class RemoteClient extends UnicastRemoteObject implements IRemoteClient{
     @Override
     public void notifyRoomClose() throws RemoteException {
         remoteObserver.notifyRoomClose();
+    }
+
+    @Override
+    public void notifyUserBeenKicker() throws IOException, NotBoundException {
+        remoteObserver.notifyUserBeenKicker();
+    }
+
+    @Override
+    public void notifyServerClosing() throws RemoteException {
+        remoteObserver.notifyServerClosing();
     }
 }

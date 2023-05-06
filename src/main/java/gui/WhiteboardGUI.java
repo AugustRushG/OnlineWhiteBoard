@@ -519,4 +519,7 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
         frame.dispose();
         System.exit(1);
     }
+    public void unRegisterClient() throws NotBoundException, IOException {
+        whiteboardApp.unRegisterClient();
+    }
 }

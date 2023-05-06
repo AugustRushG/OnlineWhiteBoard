@@ -28,8 +28,6 @@ public class Room {
     public synchronized void addChatMessage(ChatMessage message){
         chatBoard.add(message);
     }
-    public synchronized void addShapes(MyShape shape){whiteboard.addShape(shape);}
-    public synchronized void addTexts(MyText text){whiteboard.addText(text);}
 
     public synchronized void setShapes(ArrayList<MyShape> shapes){
         whiteboard.setShapes(shapes);
@@ -68,5 +66,12 @@ public class Room {
            return true;
        }
        return false;
+    }
+    public WhiteboardManager getWhiteboardManager(){
+        return whiteboardManager;
+    }
+
+    public int getNumberOfClient(){
+        return clientHashMap.size();
     }
 }

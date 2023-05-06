@@ -1,6 +1,7 @@
 package gui;
 
 import application.WhiteboardManagerApp;
+import constant.PopUpDialog;
 import models.WhiteboardManager;
 
 import java.rmi.RemoteException;
@@ -50,5 +51,15 @@ public class WhiteboardManagerGUIUpdater extends UnicastRemoteObject implements 
     @Override
     public void notifyRoomClose() throws RemoteException {
 
+    }
+
+    @Override
+    public void notifyUserBeenKicked() throws RemoteException {
+
+    }
+
+    @Override
+    public void notifyServerClosing() throws RemoteException {
+        PopUpDialog.showErrorMessageDialog("Server has been closed, all room has been closed, closing application now");
     }
 }

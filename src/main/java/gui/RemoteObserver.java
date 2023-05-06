@@ -3,7 +3,9 @@ package gui;
 import models.ChatMessage;
 import server.remoteObject.IRemoteObserver;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
@@ -38,5 +40,15 @@ public class RemoteObserver implements IRemoteObserver, Serializable {
     @Override
     public void notifyRoomClose() throws RemoteException {
         whiteboardGUIUpdater.notifyRoomClose();
+    }
+
+    @Override
+    public void notifyUserBeenKicker() throws IOException, NotBoundException {
+        whiteboardGUIUpdater.notifyUserBeenKicked();
+    }
+
+    @Override
+    public void notifyServerClosing() throws RemoteException {
+        whiteboardGUIUpdater.notifyServerClosing();
     }
 }
