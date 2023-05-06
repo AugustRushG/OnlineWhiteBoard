@@ -10,10 +10,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D;
-import java.awt.geom.Path2D;
-import java.awt.geom.Rectangle2D;
+import java.awt.geom.*;
 import java.io.IOException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -355,6 +352,39 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
             g2.setStroke(new BasicStroke(penSize));
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.50f));
 
+            // iterate over the shapes and remove the ones that intersect with the eraser
+            if (startDrag != null && endDrag != null && Objects.equals(currentShape, "Eraser")) {
+                Area eraser = new Area(makeRectangle(startDrag.x, startDrag.y, endDrag.x, endDrag.y));
+                for (int i = shapes.size() - 1; i >= 0; i--) {
+                    MyShape s = shapes.get(i);
+                    if (s.getShape() instanceof Rectangle2D.Float) {
+                        if (eraser.intersects(s.getShape().getBounds2D())) {
+                            shapes.remove(i);
+                        }
+                    } else if (s.getShape() instanceof Ellipse2D.Float) {
+                        if (eraser.intersects(s.getShape().getBounds2D())) {
+                            shapes.remove(i);
+                        }
+                    } else if (s.getShape() instanceof Line2D.Float) {
+                        if (eraser.intersects(s.getShape().getBounds2D())) {
+                            shapes.remove(i);
+                        }
+                    } else {
+                        Area shapeArea = new Area(s.getShape());
+                        shapeArea.intersect(eraser);
+                        if (!shapeArea.isEmpty()) {
+                            shapes.remove(i);
+                        }
+                    }
+                }
+                try {
+                    whiteboardApp.sendShape(shapes);
+                } catch (RemoteException e) {
+                    popConnectionDialog();
+                    throw new RuntimeException(e);
+                }
+            }
+
             for (MyShape s : shapes) {
                 g2.setPaint(currentColor);
                 if (s.getShape() instanceof Rectangle2D.Float) {
@@ -405,12 +435,12 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
                 }else{
                     MyShape myShape = new MyShape(path,currentColor,penSize);
                     shapes.add(myShape);
-                    try {
-                        whiteboardApp.sendShape(shapes);
-                    } catch (RemoteException e) {
-                        popConnectionDialog();
-                        throw new RuntimeException(e);
-                    }
+//                    try {
+//                        whiteboardApp.sendShape(shapes);
+//                    } catch (RemoteException e) {
+//                        popConnectionDialog();
+//                        throw new RuntimeException(e);
+//                    }
                     g2.draw(path);
                 }
 
@@ -488,7 +518,9 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
             currentFont = FontChooser.showFontChooser();
             System.out.println(currentFont);
         } else if(source == eraserButton){
-            currentColor = Color.white;
+            currentShape = "Eraser";
+            penSize = 10;
+            paintSurface.repaint();
             System.out.println("erasing");
         }
     }
