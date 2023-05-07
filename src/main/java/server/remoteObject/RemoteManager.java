@@ -174,7 +174,6 @@ public class RemoteManager extends UnicastRemoteObject implements IRemoteManager
                 client.notifyRoomClose();
             } catch (RemoteException e) {
                 // room already closing
-
             }
         }
         server.closeRoom(roomID);
@@ -190,8 +189,12 @@ public class RemoteManager extends UnicastRemoteObject implements IRemoteManager
     public void notifyServerClosing() throws RemoteException {
         for (Map.Entry<String, IRemoteClient> entry : clientMap.entrySet()) {
             IRemoteClient client = entry.getValue();
-            // Do something with the clientName and client
-            client.notifyServerClosing();
+            try {
+                client.notifyServerClosing();
+            }catch (RemoteException e){
+
+            }
+
         }
         observer.notifyServerClosing();
     }

@@ -25,9 +25,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Server {
-
-    // add in try and catch for port number and address
-    static int portNumber = 1234;
     private final Map<Integer,Room> roomMap;
     private final ServerGUI serverGUI;
     private final Map<Integer, IRemoteManager> remoteManagerMap;
@@ -36,7 +33,6 @@ public class Server {
         serverGUI = new ServerGUI(this);
         remoteManagerMap =  new HashMap<>();
     }
-
     public static void main(String[] args) {
         try{
             InetAddress ip = InetAddress.getLocalHost();
@@ -68,7 +64,6 @@ public class Server {
 
 
     }
-
     public void createRoom(IRemoteManager remoteManager, int roomID) throws IOException, NotBoundException {
         WhiteboardManager manager = new WhiteboardManager(remoteManager.getUsername());
         Room room = new Room(manager,new HashMap<>(),roomID);
@@ -96,12 +91,16 @@ public class Server {
         Room room = roomMap.get(roomID);
         return room.checkUsernameExist(username);
     }
-
     public void broadCastAllRoomsServerClosing() throws RemoteException {
         for (Map.Entry<Integer, IRemoteManager> entry : remoteManagerMap.entrySet()) {
             IRemoteManager manager = entry.getValue();
             // Do something with the clientName and client
-            manager.notifyServerClosing();
+            try {
+                manager.notifyServerClosing();
+            }catch (RemoteException ignored){
+
+            }
+
         }
     }
     public void updateChatBoard(String sender, String text, int roomID) throws RemoteException {
