@@ -5,8 +5,8 @@ import gui.MyText;
 import gui.WhiteboardGUI;
 import models.ChatMessage;
 import server.remoteObject.IRemoteClient;
-import server.remoteObject.IRemoteManager;
 import server.remoteObject.IRemoteObserver;
+import server.remoteObject.IRemoteServer;
 
 import java.io.IOException;
 import java.rmi.NotBoundException;
@@ -14,12 +14,12 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 public class WhiteboardApp{
-    private IRemoteClient remoteClient;
-    private IRemoteManager remoteManager;
-    private String username;
-    public WhiteboardApp(IRemoteClient remoteClient, IRemoteManager remoteManager,String username){
+    private final IRemoteClient remoteClient;
+    private final IRemoteServer remoteServer;
+    private final String username;
+    public WhiteboardApp(IRemoteClient remoteClient, IRemoteServer remoteServer,String username){
         this.remoteClient = remoteClient;
-        this.remoteManager = remoteManager;
+        this.remoteServer = remoteServer;
         this.username = username;
     }
     public void createWhiteboard() throws RemoteException {
@@ -54,6 +54,6 @@ public class WhiteboardApp{
     }
 
     public void unRegisterClient() throws IOException, NotBoundException {
-        remoteManager.unRegisterClient(remoteClient,username);
+        remoteServer.unRegisterClient(remoteClient,username, remoteClient.getRoomId());
     }
 }

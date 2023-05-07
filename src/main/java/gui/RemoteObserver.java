@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class RemoteObserver implements IRemoteObserver, Serializable {
 
-    private IWhiteboardGUIUpdater whiteboardGUIUpdater;
+    private final IWhiteboardGUIUpdater whiteboardGUIUpdater;
     public RemoteObserver(IWhiteboardGUIUpdater whiteboardGUIUpdater) {
         this.whiteboardGUIUpdater = whiteboardGUIUpdater;
     }

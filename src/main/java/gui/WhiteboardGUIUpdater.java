@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class WhiteboardGUIUpdater extends UnicastRemoteObject implements IWhiteboardGUIUpdater{
 
-    private WhiteboardGUI whiteboardGUI;
+    private final WhiteboardGUI whiteboardGUI;
 
     protected WhiteboardGUIUpdater(WhiteboardGUI whiteboardGUI) throws RemoteException {
         this.whiteboardGUI = whiteboardGUI;

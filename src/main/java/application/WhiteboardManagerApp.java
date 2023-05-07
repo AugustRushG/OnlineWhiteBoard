@@ -13,7 +13,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 public class WhiteboardManagerApp{
-    private IRemoteManager remoteManager;
+    private final IRemoteManager remoteManager;
     public WhiteboardManagerApp(IRemoteManager remoteManager){
         this.remoteManager = remoteManager;
     }

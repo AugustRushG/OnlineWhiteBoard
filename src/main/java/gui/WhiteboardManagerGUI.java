@@ -2,10 +2,7 @@ package gui;
 
 import application.WhiteboardManagerApp;
 import constant.PopUpDialog;
-import models.ChatMessage;
 import models.Whiteboard;
-import server.remoteObject.IRemoteObserver;
-
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -16,33 +13,24 @@ import java.awt.geom.*;
 import java.io.*;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.Timer;
 
 
 public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
     private final JFrame frame;
     private final JButton colorButton;
     private final JSlider sizeSlider;
-    private final JButton lineButton;
-    private final JButton circleButton;
-    private final JButton ovalButton;
-    private final JButton rectangleButton;
-    private final JButton freeHandButton;
-    private final JButton fontButton;
-    private final JButton eraserButton;
-    private final JButton clearButton,fileButton;
+    private final JButton rectangleButton,ovalButton,circleButton,lineButton;
+    private final JButton clearButton,fileButton,eraserButton,fontButton,freeHandButton;
     private String currentShape = "None";
     private Color currentColor = Color.BLACK;
     private int penSize = 5;
     private Font currentFont = new Font("Arial", Font.PLAIN, 24);
-    private PaintSurface paintSurface;
-    private JPanel userPanel;
-    private JList<String> userList;
-    private JTextArea chatArea;
-    private WhiteboardManagerApp whiteboardManagerApp;
+    private final PaintSurface paintSurface;
+    private final JList<String> userList;
+    private final JTextArea chatArea;
+    private final WhiteboardManagerApp whiteboardManagerApp;
 
     public WhiteboardManagerGUI(WhiteboardManagerApp whiteboardManagerApp) throws RemoteException {
         this.whiteboardManagerApp = whiteboardManagerApp;
@@ -61,7 +49,7 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
             public void windowClosing(WindowEvent e) {
                 try {
                     whiteboardManagerApp.closeRoom();
-                } catch (IOException ex) {
+                } catch (IOException ignored) {
                 }
                 finally {
                     System.exit(0);
@@ -107,8 +95,6 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
         clearButton.addActionListener(this);
         fileButton = new JButton("File");
         fileButton.addActionListener(this);
-
-
 
         // Add components to the content pane
         Container contentPane = frame.getContentPane();
@@ -171,6 +157,7 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
 
 
         // user list panel
+        JPanel userPanel;
         try{
             userPanel = new JPanel(new BorderLayout());
             JLabel roomLabel = new JLabel("Room" + whiteboardManagerApp.getRoomId());
@@ -208,7 +195,7 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
         }
 
         contentPane.add(userPanel,BorderLayout.EAST);
-
+        frame.setLocationRelativeTo(null);
         // Show the window
         frame.setVisible(true);
     }
@@ -272,8 +259,7 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
                         System.out.println("clicked twice"+e.getX()+" "+e.getY());
                         int x1= e.getX();
                         int y1=e.getY();
-                        JDialog dialog = new JDialog();
-                        dialog.setTitle("Enter Text");
+                        JDialog dialog = new JDialog(frame,"Enter Text",true);
                         dialog.setSize(300, 150);
                         dialog.setLayout(new BorderLayout());
                         // Add a text field to the JDialog
@@ -321,7 +307,6 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
 
                         // Set the location of the dialog to where the mouse was clicked
                         dialog.setLocation(e.getX(), e.getY());
-
                         // Show the dialog
                         dialog.setVisible(true);
 
@@ -364,21 +349,21 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
                 Area eraser = new Area(makeRectangle(startDrag.x, startDrag.y, endDrag.x, endDrag.y));
                 for (int i = shapes.size() - 1; i >= 0; i--) {
                     MyShape s = shapes.get(i);
-                    if (s.getShape() instanceof Rectangle2D.Float) {
-                        if (eraser.intersects(s.getShape().getBounds2D())) {
+                    if (s.shape() instanceof Rectangle2D.Float) {
+                        if (eraser.intersects(s.shape().getBounds2D())) {
                             shapes.remove(i);
                         }
-                    } else if (s.getShape() instanceof Ellipse2D.Float) {
-                        if (eraser.intersects(s.getShape().getBounds2D())) {
+                    } else if (s.shape() instanceof Ellipse2D.Float) {
+                        if (eraser.intersects(s.shape().getBounds2D())) {
                             shapes.remove(i);
                         }
-                    } else if (s.getShape() instanceof Line2D.Float) {
-                        if (eraser.intersects(s.getShape().getBounds2D())) {
+                    } else if (s.shape() instanceof Line2D.Float) {
+                        if (eraser.intersects(s.shape().getBounds2D())) {
                             shapes.remove(i);
                         }
                     }
                     else {
-                        Area shapeArea = new Area(s.getShape());
+                        Area shapeArea = new Area(s.shape());
                         shapeArea.intersect(eraser);
                         if (!shapeArea.isEmpty()) {
                             shapes.remove(i);
@@ -394,28 +379,28 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
             }
             for (MyShape s : shapes) {
                 g2.setPaint(currentColor);
-                if (s.getShape() instanceof Rectangle2D.Float) {
-                    g2.setPaint(s.getColor());
-                    g2.setStroke(new BasicStroke(s.getPenSize()));
-                    g2.draw(s.getShape());
+                if (s.shape() instanceof Rectangle2D.Float) {
+                    g2.setPaint(s.color());
+                    g2.setStroke(new BasicStroke(s.penSize()));
+                    g2.draw(s.shape());
 
-                } else if (s.getShape() instanceof Ellipse2D.Float) {
-                    g2.setPaint(s.getColor());
-                    g2.setStroke(new BasicStroke(s.getPenSize()));
-                    g2.draw(s.getShape());
+                } else if (s.shape() instanceof Ellipse2D.Float) {
+                    g2.setPaint(s.color());
+                    g2.setStroke(new BasicStroke(s.penSize()));
+                    g2.draw(s.shape());
 
                     //g2.fill(s);
                 }
-                else if (s.getShape() instanceof Line2D.Float){
-                    g2.setPaint(s.getColor());
-                    g2.setStroke(new BasicStroke(s.getPenSize()));
-                    g2.draw(s.getShape());
+                else if (s.shape() instanceof Line2D.Float){
+                    g2.setPaint(s.color());
+                    g2.setStroke(new BasicStroke(s.penSize()));
+                    g2.draw(s.shape());
 
                 }
                 else{
-                    g2.setPaint(s.getColor());
-                    g2.setStroke(new BasicStroke(s.getPenSize()));
-                    g2.draw(s.getShape());
+                    g2.setPaint(s.color());
+                    g2.setStroke(new BasicStroke(s.penSize()));
+                    g2.draw(s.shape());
                 }
             }
             for (MyText t : texts){
@@ -431,7 +416,7 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
                     Shape line = makeLine(startDrag.x, startDrag.y, endDrag.x, endDrag.y);
                     g2.draw(line);
                 }
-                else if (currentShape == "Circle"||currentShape=="Oval") {
+                else if (Objects.equals(currentShape, "Circle") || Objects.equals(currentShape, "Oval")) {
                     Shape r = makeEllipse(startDrag.x, startDrag.y, endDrag.x, endDrag.y);
                     g2.draw(r);
                 }
@@ -458,20 +443,16 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
                 int diameter = Math.min(Math.abs(x1 - x2), Math.abs(y1 - y2));
                 int centerX = Math.min(x1, x2) + diameter / 2;
                 int centerY = Math.min(y1, y2) + diameter / 2;
-                Ellipse2D.Float circle = new Ellipse2D.Float(centerX - diameter / 2, centerY - diameter / 2, diameter, diameter);
-                return circle;
+                return new Ellipse2D.Float(centerX - diameter / 2, centerY - diameter / 2, diameter, diameter);
             }
-            Ellipse2D.Float ellipse = new Ellipse2D.Float(Math.min(x1, x2), Math.min(y1, y2), Math.abs(x1 - x2), Math.abs(y1 - y2));
-            return ellipse;
+            return new Ellipse2D.Float(Math.min(x1, x2), Math.min(y1, y2), Math.abs(x1 - x2), Math.abs(y1 - y2));
         }
 
         private Rectangle2D.Float makeRectangle(int x1, int y1, int x2, int y2) {
-            Rectangle2D.Float rect = new Rectangle2D.Float(Math.min(x1, x2), Math.min(y1, y2), Math.abs(x1 - x2), Math.abs(y1 - y2));
-            return rect;
+            return new Rectangle2D.Float(Math.min(x1, x2), Math.min(y1, y2), Math.abs(x1 - x2), Math.abs(y1 - y2));
         }
         private Line2D.Float makeLine(int x1, int y1, int x2, int y2) {
-            Line2D.Float line = new Line2D.Float(x1, y1, x2, y2);
-            return line;
+            return new Line2D.Float(x1, y1, x2, y2);
         }
         private void addText(String text, Color color, int penSize, int x1, int y1) throws RemoteException {
             System.out.println(text+" "+x1+" "+y1);
@@ -563,7 +544,7 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
         chatArea.append(text);
     }
     public void updateUserList(ArrayList<String> newUserList){
-        String[] userArray = newUserList.toArray(new String[newUserList.size()]);
+        String[] userArray = newUserList.toArray(new String[0]);
         userList.setListData(userArray);
     }
     public void updateShapeList(ArrayList<MyShape> myShapes){
@@ -592,10 +573,9 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
     }
     public int popFileDialog(){
         String[] options = {"Save Current Whiteboard", "Load Previous Whiteboard", "New Whiteboard", "Close Room"};
-        int result = JOptionPane.showOptionDialog(frame, "Select an option", "Options",
+        return JOptionPane.showOptionDialog(frame, "Select an option", "Options",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
                 null, options, options[0]);
-        return result;
     }
     public void kickUser(String username) throws IOException, NotBoundException {
         whiteboardManagerApp.kickUser(username);
