@@ -11,7 +11,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="06680185-165e-4e53-8000-00e0d7013382" name="Changes" comment="Update on some logic" />
+    <list default="true" id="06680185-165e-4e53-8000-00e0d7013382" name="Changes" comment="Finish some structures">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/OnlineWhiteBoard_Server_jar/OnlineWhiteBoard_Server.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/OnlineWhiteBoard_Server_jar/OnlineWhiteBoard_Server.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/JoinWhiteBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/JoinWhiteBoard.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -111,6 +116,19 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="OnlineWhiteBoard" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="OnlineWhiteBoard" />
+      <option name="filePath" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -219,7 +237,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Finish some structures" />
     <MESSAGE value="Complete UI for whiteboard" />
     <MESSAGE value="Complete basic logic for creating Whiteboard" />
     <MESSAGE value="Complete most part" />
@@ -229,7 +246,8 @@
     <MESSAGE value="Changed name for better understanding" />
     <MESSAGE value="Add in jar" />
     <MESSAGE value="Update on some logic" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update on some logic" />
+    <MESSAGE value="Finish some structures" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finish some structures" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -22,7 +22,7 @@ public class JoinWhiteBoard {
 
     public static void main(String[] args) {
         try {
-            Registry registry = LocateRegistry.getRegistry(serverAddress);
+            Registry registry = LocateRegistry.getRegistry("192.168.20.12");
             IRemoteManager remoteManager = (IRemoteManager) registry.lookup(RegistryConstant.REMOTE_MANAGER);
             IRemoteClient remoteClient = (IRemoteClient) registry.lookup(RegistryConstant.REMOTE_CLIENT);
 
