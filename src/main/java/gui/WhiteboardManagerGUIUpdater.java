@@ -1,8 +1,6 @@
 package gui;
 
-import application.WhiteboardManagerApp;
 import constant.PopUpDialog;
-import models.WhiteboardManager;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -10,7 +8,7 @@ import java.util.ArrayList;
 
 public class WhiteboardManagerGUIUpdater extends UnicastRemoteObject implements IWhiteboardGUIUpdater{
 
-    private WhiteboardManagerGUI whiteboardManagerGUI;
+    private final WhiteboardManagerGUI whiteboardManagerGUI;
 
     protected WhiteboardManagerGUIUpdater(WhiteboardManagerGUI whiteboardManagerGUI) throws RemoteException {
         super();

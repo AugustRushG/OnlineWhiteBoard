@@ -6,7 +6,7 @@ import java.io.Serializable;
 public class MyText implements Serializable {
     private String text;
     private Color color;
-    private Font font;
+    private final Font font;
 
     public int getX1() {
         return x1;
@@ -18,7 +18,8 @@ public class MyText implements Serializable {
 
     private int penSize;
 
-    private int x1, y1;
+    private final int x1;
+    private final int y1;
     public MyText(String text, Color color, int penSize, int x1, int y1, Font font){
         this.text = text;
         this.color = color;

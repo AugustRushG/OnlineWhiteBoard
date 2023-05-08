@@ -26,15 +26,6 @@ public class RemoteManager extends UnicastRemoteObject implements IRemoteManager
     public RemoteManager() throws RemoteException {
         clientMap = new HashMap<>();
     }
-
-    @Override
-    public void createRoom(IRemoteManager manager, String username) throws IOException, NotBoundException {
-        this.roomID = server.createRoomID();
-        this.username = username;
-        server.createRoom(this,roomID);
-        System.out.println("creating room manger id is "+username+" room id is "+roomID);
-    }
-
     @Override
     public void sendMessage(String message, String username, int roomID) throws RemoteException {
         System.out.println("getting message from "+username+" message is "+message);
@@ -42,26 +33,22 @@ public class RemoteManager extends UnicastRemoteObject implements IRemoteManager
 
 //        notifyObserver(new ChatMessage(username,message));
     }
-
     @Override
     public void sendDrawing(ArrayList<MyShape> shapes) throws RemoteException {
-        System.out.println("getting drawing from "+username);
+        System.out.println("getting drawing from "+username + "in room "+roomID);
         server.updateWhiteBoardShape(shapes, roomID);
 
     }
-
     @Override
     public void sendText(ArrayList<MyText> texts) throws RemoteException {
         System.out.println("getting text from " + username);
         server.updateWhiteboardText(texts,roomID);
     }
-
     @Override
     public ArrayList<ChatMessage> receiveMessage() throws RemoteException {
         System.out.println("latest is "+ server.loadLatestChatBoard(roomID).toString());
         return server.loadLatestChatBoard(roomID);
     }
-
     @Override
     public synchronized void registerClient(IRemoteClient client, String username) throws IOException, NotBoundException {
         client.setUsername(username);
@@ -72,40 +59,33 @@ public class RemoteManager extends UnicastRemoteObject implements IRemoteManager
         server.addClientToRoom(whiteboardClient,roomID);
         System.out.println("Client " + client.getUsername() + " added into room ."+ roomID);
     }
-
     @Override
     public void unRegisterClient(IRemoteClient client, String username) throws IOException, NotBoundException {
         clientMap.remove(username);
         server.removeClientInRoom(username,roomID);
         System.out.println("Client " + client.getUsername() + " removed on manager.");
     }
-
     @Override
     public String getUsername() throws RemoteException{
         return username;
     }
-
     @Override
     public int getRoomID() throws RemoteException {
         return roomID;
     }
-
     @Override
     public ArrayList<String> getUsersInRoom() throws RemoteException {
         return server.getUserInRoom(roomID);
     }
-
     @Override
     public IRemoteClient getClient(String username) throws RemoteException {
         System.out.println("getting client "+clientMap.get(username).getRoomId());
         return clientMap.get(username);
     }
-
     @Override
     public void registerObserver(IRemoteObserver observer) throws RemoteException {
         this.observer = observer;
     }
-
     @Override
     public void removeObserver(IRemoteObserver observer) throws RemoteException {
 
@@ -187,12 +167,17 @@ public class RemoteManager extends UnicastRemoteObject implements IRemoteManager
 
     @Override
     public void notifyRoomClose() throws RemoteException {
-        for (Map.Entry<String, IRemoteClient> entry : clientMap.entrySet()) {
-            IRemoteClient client = entry.getValue();
-            // Do something with the clientName and client
-            client.notifyRoomClose();
+        System.out.println(clientMap.keySet());
+        for (IRemoteClient client : clientMap.values()) {
+            System.out.println("telling "+client.getUsername()+ "room is closing");
+            try {
+                client.notifyRoomClose();
+            } catch (RemoteException e) {
+                // room already closing
+            }
         }
         server.closeRoom(roomID);
+        System.out.println("room officially closed ");
     }
 
     @Override
@@ -204,9 +189,21 @@ public class RemoteManager extends UnicastRemoteObject implements IRemoteManager
     public void notifyServerClosing() throws RemoteException {
         for (Map.Entry<String, IRemoteClient> entry : clientMap.entrySet()) {
             IRemoteClient client = entry.getValue();
-            // Do something with the clientName and client
-            client.notifyServerClosing();
+            try {
+                client.notifyServerClosing();
+            }catch (RemoteException e){
+
+            }
+
         }
         observer.notifyServerClosing();
+    }
+    @Override
+    public void setUsername(String username) throws RemoteException {
+        this.username = username;
+    }
+    @Override
+    public void setRoomID(int roomID) throws RemoteException {
+        this.roomID = roomID;
     }
 }

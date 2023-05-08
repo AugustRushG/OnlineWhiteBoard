@@ -8,18 +8,16 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ServerGUI {
-    private final JFrame frame;
     private final Server server;
-    private JList<String> roomList;
+    private final JList<String> roomList;
 
     public ServerGUI(Server server) {
         this.server = server;
-        this.frame = new JFrame("Server Panel");
+        JFrame frame = new JFrame("Server Panel");
         frame.setLayout(new BorderLayout());
 
         frame.addWindowListener(new WindowAdapter() {
@@ -27,7 +25,7 @@ public class ServerGUI {
             public void windowClosing(WindowEvent e) {
                 try {
                     server.broadCastAllRoomsServerClosing();
-                } catch (IOException ex) {
+                } catch (IOException ignored) {
                 }
                 finally {
                     System.exit(0);

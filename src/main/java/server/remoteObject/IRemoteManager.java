@@ -2,21 +2,15 @@ package server.remoteObject;
 
 import gui.MyShape;
 import gui.MyText;
-import jdk.jshell.execution.Util;
 import models.ChatMessage;
-import models.WhiteboardManager;
-
 import java.io.IOException;
 import java.rmi.NotBoundException;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.security.KeyPair;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+
 
 public interface IRemoteManager extends IRemoteObserver {
-    void createRoom(IRemoteManager manager, String name) throws IOException, NotBoundException;
     void sendMessage(String message,String name, int roomID) throws RemoteException;
     void sendDrawing(ArrayList<MyShape> shapes) throws RemoteException;
     void sendText(ArrayList<MyText> texts) throws RemoteException;
@@ -33,4 +27,6 @@ public interface IRemoteManager extends IRemoteObserver {
     boolean confirmClientJoin(String username) throws RemoteException;
     boolean checkUsernameExisted(String username) throws RemoteException;
     void kickUser(String username) throws IOException, NotBoundException;
+    void setUsername(String username) throws RemoteException;
+    void setRoomID(int roomID) throws RemoteException;
 }

@@ -8,10 +8,13 @@ import models.ChatMessage;
 import models.Room;
 import models.WhiteboardClient;
 import models.WhiteboardManager;
-import server.remoteObject.*;
+import server.remoteObject.IRemoteManager;
+import server.remoteObject.RemoteClient;
+import server.remoteObject.RemoteManager;
+import server.remoteObject.RemoteServer;
+
 import java.io.IOException;
 import java.net.InetAddress;
-import java.rmi.AccessException;
 import java.rmi.AlreadyBoundException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -22,18 +25,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Server {
-
-    // add in try and catch for port number and address
-    static int portNumber = 1234;
-    private Map<Integer,Room> roomMap;
-    private ServerGUI serverGUI;
-    private Map<Integer, IRemoteManager> remoteManagerMap;
+    private final Map<Integer,Room> roomMap;
+    private final ServerGUI serverGUI;
+    private final Map<Integer, IRemoteManager> remoteManagerMap;
     public Server(){
         roomMap = new HashMap<>();
         serverGUI = new ServerGUI(this);
         remoteManagerMap =  new HashMap<>();
     }
-
     public static void main(String[] args) {
         try{
             InetAddress ip = InetAddress.getLocalHost();
@@ -41,35 +40,29 @@ public class Server {
 
             RemoteManager remoteManager = new RemoteManager();
             RemoteClient remoteClient = new RemoteClient();
+            RemoteServer remoteServer = new RemoteServer();
 
             Registry registry = LocateRegistry.getRegistry();
             // provide service
 
             registry.bind(RegistryConstant.REMOTE_CLIENT, remoteClient);
             registry.bind(RegistryConstant.REMOTE_MANAGER,remoteManager);
+            registry.bind(RegistryConstant.REMOTE_SERVER,remoteServer);
             System.out.println("Registry running at " + ip + ":1099");
 
             // create Server
             Server server = new Server();
             remoteManager.setServer(server);
             remoteClient.setServer(server);
+            remoteServer.setServer(server);
             System.out.println("server up and running");
 
 
-        } catch (AccessException e) {
-            throw new RuntimeException(e);
-        } catch (AlreadyBoundException e) {
-            throw new RuntimeException(e);
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+        } catch (AlreadyBoundException | IOException e) {
             throw new RuntimeException(e);
         }
 
 
-    }
-    public ArrayList<Integer> getRoomIDs(){
-        return new ArrayList<>(roomMap.keySet());
     }
     public void createRoom(IRemoteManager remoteManager, int roomID) throws IOException, NotBoundException {
         WhiteboardManager manager = new WhiteboardManager(remoteManager.getUsername());
@@ -77,7 +70,7 @@ public class Server {
         roomMap.put(roomID,room);
         remoteManagerMap.put(roomID,remoteManager);
         System.out.println(remoteManager.getRoomID());
-        System.out.println("new room created and added to the map room id is "+roomID + "manager is " +remoteManager.getUsername());
+        System.out.println("new room created and added to the map room id is "+roomID + " manager is " +remoteManager.getUsername());
         serverGUI.updateRoomList();
     }
     public void addClientToRoom(WhiteboardClient client, int roomID) throws RemoteException {
@@ -94,25 +87,20 @@ public class Server {
         roomManager.notifyUserChange(room.getUsersInRoom());
         serverGUI.updateRoomList();
     }
-
-    public void kickClientInRoom(String username, int roomID){
-        Room room = roomMap.get(roomID);
-        room.removeClientInRoom(username);
-        serverGUI.updateRoomList();
-    }
     public boolean checkUsernameExisted(String username, int roomID){
         Room room = roomMap.get(roomID);
         return room.checkUsernameExist(username);
-    }
-    public WhiteboardClient getSpecificClientInRoom(String username, int roomID){
-        Room room = roomMap.get(roomID);
-        return room.getSpecificClient(username);
     }
     public void broadCastAllRoomsServerClosing() throws RemoteException {
         for (Map.Entry<Integer, IRemoteManager> entry : remoteManagerMap.entrySet()) {
             IRemoteManager manager = entry.getValue();
             // Do something with the clientName and client
-            manager.notifyServerClosing();
+            try {
+                manager.notifyServerClosing();
+            }catch (RemoteException ignored){
+
+            }
+
         }
     }
     public void updateChatBoard(String sender, String text, int roomID) throws RemoteException {
@@ -129,6 +117,7 @@ public class Server {
         roomMap.get(roomID).setShapes(shapes);
         IRemoteManager roomManager = remoteManagerMap.get(roomID);
         Room room = roomMap.get(roomID);
+        System.out.println("room "+roomID + " is getting new shape");
         roomManager.notifyShapeChange(room.getShapeList());
 
     }
@@ -152,6 +141,7 @@ public class Server {
         return roomMap.get(roomID).getChatBoard();
     }
     public ArrayList<String> getUserInRoom(int roomID){
+        System.out.println("user in room are "+roomMap.get(roomID).getUsersInRoom());
         return roomMap.get(roomID).getUsersInRoom();
     }
     public void closeRoom(int roomID){
@@ -161,5 +151,7 @@ public class Server {
     public Map<Integer,Room> getRoomMap(){
         return roomMap;
     }
-
+    public IRemoteManager getManager(int roomID){
+        return remoteManagerMap.get(roomID);
+    }
 }

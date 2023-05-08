@@ -1,7 +1,6 @@
 package gui;
 
 import application.WhiteboardApp;
-import application.WhiteboardManagerApp;
 import constant.PopUpDialog;
 import models.ChatMessage;
 
@@ -14,13 +13,12 @@ import java.awt.geom.*;
 import java.io.IOException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Objects;
 
 
 public class WhiteboardGUI implements  ActionListener, ChangeListener {
-    private JFrame frame;
+    private final JFrame frame;
     private final JButton colorButton;
     private final JSlider sizeSlider;
     private final JButton lineButton;
@@ -34,12 +32,10 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
     private Color currentColor = Color.BLACK;
     private int penSize = 5;
     private Font currentFont = new Font("Arial", Font.PLAIN, 24);
-    private PaintSurface paintSurface;
-    private JPanel userPanel;
-    private JList<String> userList;
-    private WhiteboardApp whiteboardApp;
-    private JTextArea chatArea;
-    public DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+    private final PaintSurface paintSurface;
+    private final JList<String> userList;
+    private final WhiteboardApp whiteboardApp;
+    private final JTextArea chatArea;
 
     public WhiteboardGUI(WhiteboardApp whiteboardApp) throws RemoteException {
         this.whiteboardApp = whiteboardApp;
@@ -56,10 +52,7 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
             public void windowClosing(WindowEvent e) {
                 try {
                     whiteboardApp.unRegisterClient();
-                } catch (IOException ex) {
-                    popConnectionDialog();
-                    throw new RuntimeException(ex);
-                } catch (NotBoundException ex) {
+                } catch (IOException | NotBoundException ex) {
                     popConnectionDialog();
                     throw new RuntimeException(ex);
                 }
@@ -173,6 +166,7 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
         }
 
         // add user to the list
+        JPanel userPanel;
         try{
             userPanel = new JPanel(new BorderLayout());
             JLabel roomLabel = new JLabel("Room" + whiteboardApp.getRoomId());
@@ -357,20 +351,20 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
                 Area eraser = new Area(makeRectangle(startDrag.x, startDrag.y, endDrag.x, endDrag.y));
                 for (int i = shapes.size() - 1; i >= 0; i--) {
                     MyShape s = shapes.get(i);
-                    if (s.getShape() instanceof Rectangle2D.Float) {
-                        if (eraser.intersects(s.getShape().getBounds2D())) {
+                    if (s.shape() instanceof Rectangle2D.Float) {
+                        if (eraser.intersects(s.shape().getBounds2D())) {
                             shapes.remove(i);
                         }
-                    } else if (s.getShape() instanceof Ellipse2D.Float) {
-                        if (eraser.intersects(s.getShape().getBounds2D())) {
+                    } else if (s.shape() instanceof Ellipse2D.Float) {
+                        if (eraser.intersects(s.shape().getBounds2D())) {
                             shapes.remove(i);
                         }
-                    } else if (s.getShape() instanceof Line2D.Float) {
-                        if (eraser.intersects(s.getShape().getBounds2D())) {
+                    } else if (s.shape() instanceof Line2D.Float) {
+                        if (eraser.intersects(s.shape().getBounds2D())) {
                             shapes.remove(i);
                         }
                     } else {
-                        Area shapeArea = new Area(s.getShape());
+                        Area shapeArea = new Area(s.shape());
                         shapeArea.intersect(eraser);
                         if (!shapeArea.isEmpty()) {
                             shapes.remove(i);
@@ -387,28 +381,28 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
 
             for (MyShape s : shapes) {
                 g2.setPaint(currentColor);
-                if (s.getShape() instanceof Rectangle2D.Float) {
-                    g2.setPaint(s.getColor());
-                    g2.setStroke(new BasicStroke(s.getPenSize()));
-                    g2.draw(s.getShape());
+                if (s.shape() instanceof Rectangle2D.Float) {
+                    g2.setPaint(s.color());
+                    g2.setStroke(new BasicStroke(s.penSize()));
+                    g2.draw(s.shape());
 
-                } else if (s.getShape() instanceof Ellipse2D.Float) {
-                    g2.setPaint(s.getColor());
-                    g2.setStroke(new BasicStroke(s.getPenSize()));
-                    g2.draw(s.getShape());
+                } else if (s.shape() instanceof Ellipse2D.Float) {
+                    g2.setPaint(s.color());
+                    g2.setStroke(new BasicStroke(s.penSize()));
+                    g2.draw(s.shape());
 
                     //g2.fill(s);
                 }
-                else if (s.getShape() instanceof Line2D.Float){
-                    g2.setPaint(s.getColor());
-                    g2.setStroke(new BasicStroke(s.getPenSize()));
-                    g2.draw(s.getShape());
+                else if (s.shape() instanceof Line2D.Float){
+                    g2.setPaint(s.color());
+                    g2.setStroke(new BasicStroke(s.penSize()));
+                    g2.draw(s.shape());
 
                 }
                 else{
-                    g2.setPaint(s.getColor());
-                    g2.setStroke(new BasicStroke(s.getPenSize()));
-                    g2.draw(s.getShape());
+                    g2.setPaint(s.color());
+                    g2.setStroke(new BasicStroke(s.penSize()));
+                    g2.draw(s.shape());
                 }
             }
             for (MyText t : texts){
@@ -425,7 +419,7 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
                     Shape line = makeLine(startDrag.x, startDrag.y, endDrag.x, endDrag.y);
                     g2.draw(line);
                 }
-                else if (currentShape == "Circle"||currentShape=="Oval") {
+                else if (Objects.equals(currentShape, "Circle") || Objects.equals(currentShape, "Oval")) {
                     Shape r = makeEllipse(startDrag.x, startDrag.y, endDrag.x, endDrag.y);
                     g2.draw(r);
                 }
@@ -433,8 +427,8 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
                     Shape r = makeRectangle(startDrag.x, startDrag.y, endDrag.x, endDrag.y);
                     g2.draw(r);
                 }else{
-                    MyShape myShape = new MyShape(path,currentColor,penSize);
-                    shapes.add(myShape);
+//                    MyShape myShape = new MyShape(path,currentColor,penSize);
+//                    shapes.add(myShape);
 //                    try {
 //                        whiteboardApp.sendShape(shapes);
 //                    } catch (RemoteException e) {
@@ -454,21 +448,17 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
                 int diameter = Math.min(Math.abs(x1 - x2), Math.abs(y1 - y2));
                 int centerX = Math.min(x1, x2) + diameter / 2;
                 int centerY = Math.min(y1, y2) + diameter / 2;
-                Ellipse2D.Float circle = new Ellipse2D.Float(centerX - diameter / 2, centerY - diameter / 2, diameter, diameter);
-                return circle;
+                return new Ellipse2D.Float(centerX - diameter / 2, centerY - diameter / 2, diameter, diameter);
             }
-            Ellipse2D.Float ellipse = new Ellipse2D.Float(Math.min(x1, x2), Math.min(y1, y2), Math.abs(x1 - x2), Math.abs(y1 - y2));
-            return ellipse;
+            return new Ellipse2D.Float(Math.min(x1, x2), Math.min(y1, y2), Math.abs(x1 - x2), Math.abs(y1 - y2));
         }
 
         private Rectangle2D.Float makeRectangle(int x1, int y1, int x2, int y2) {
-            Rectangle2D.Float rect = new Rectangle2D.Float(Math.min(x1, x2), Math.min(y1, y2), Math.abs(x1 - x2), Math.abs(y1 - y2));
-            return rect;
+            return new Rectangle2D.Float(Math.min(x1, x2), Math.min(y1, y2), Math.abs(x1 - x2), Math.abs(y1 - y2));
         }
 
         private Line2D.Float makeLine(int x1, int y1, int x2, int y2) {
-            Line2D.Float line = new Line2D.Float(x1, y1, x2, y2);
-            return line;
+            return new Line2D.Float(x1, y1, x2, y2);
         }
 
         private void addText(String text, Color color, int penSize, int x1, int y1) throws RemoteException {
@@ -532,7 +522,7 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
         chatArea.append(text);
     }
     public void updateUserList(ArrayList<String> newUserList){
-        String[] userArray = newUserList.toArray(new String[newUserList.size()]);
+        String[] userArray = newUserList.toArray(new String[0]);
         userList.setListData(userArray);
     }
     public void updateShapeList(ArrayList<MyShape> myShapes){
