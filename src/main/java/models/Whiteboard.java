@@ -2,12 +2,10 @@ package models;
 
 import gui.MyShape;
 import gui.MyText;
-import gui.WhiteboardManagerGUI;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Whiteboard implements Serializable {
+public class Whiteboard {
     public ArrayList<MyShape> shapes;
     public ArrayList<MyText> texts;
 
@@ -24,22 +22,13 @@ public class Whiteboard implements Serializable {
         return texts;
     }
 
-    public void addShape(MyShape shape){
-        shapes.add(shape);
-    }
-
-    public void setShapes(ArrayList<MyShape> shapes) {
+    public synchronized void setShapes(ArrayList<MyShape> shapes) {
         this.shapes = shapes;
     }
 
-    public void setTexts(ArrayList<MyText> texts) {
+    public synchronized void setTexts(ArrayList<MyText> texts) {
         this.texts = texts;
     }
-
-    public void addText(MyText text){
-        texts.add(text);
-    }
-
 
 
 }

@@ -11,18 +11,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="06680185-165e-4e53-8000-00e0d7013382" name="Changes" comment="Cleaned code for better structure">
+    <list default="true" id="06680185-165e-4e53-8000-00e0d7013382" name="Changes" comment="Fixed Dialog bugs with parents">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/CreateWhiteboard_jar/CreateWhiteboard.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/CreateWhiteboard_jar/CreateWhiteboard.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/JoinWhiteboard_jar/JoinWhiteboard.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/JoinWhiteboard_jar/JoinWhiteboard.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/OnlineWhiteBoard_Server_jar/OnlineWhiteBoard_Server.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/OnlineWhiteBoard_Server_jar/OnlineWhiteBoard_Server.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/CreateWhiteboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/CreateWhiteboard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/JoinWhiteBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/JoinWhiteBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/constant/PopUpDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/constant/PopUpDialog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/gui/WhiteboardGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/WhiteboardGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/WhiteboardGUIUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/WhiteboardGUIUpdater.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/gui/WhiteboardManagerGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/WhiteboardManagerGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/WhiteboardManagerGUIUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/WhiteboardManagerGUIUpdater.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Room.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/Whiteboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Whiteboard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/WhiteboardClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/WhiteboardClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/WhiteboardManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/WhiteboardManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,7 +159,7 @@
       <workItem from="1683336256969" duration="6456000" />
       <workItem from="1683358458124" duration="24183000" />
       <workItem from="1683632711966" duration="592000" />
-      <workItem from="1683766967272" duration="2799000" />
+      <workItem from="1683766967272" duration="4652000" />
     </task>
     <task id="LOCAL-00001" summary="Complete UI for whiteboard">
       <created>1682986677591</created>
@@ -246,7 +245,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683500454719</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Fixed Dialog bugs with parents">
+      <created>1683769996568</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1683769996568</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -276,7 +282,8 @@
     <MESSAGE value="Update on some logic" />
     <MESSAGE value="Cleaned code" />
     <MESSAGE value="Cleaned code for better structure" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cleaned code for better structure" />
+    <MESSAGE value="Fixed Dialog bugs with parents" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed Dialog bugs with parents" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

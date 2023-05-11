@@ -1,17 +1,14 @@
 package models;
 
-import javax.xml.crypto.Data;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.util.Date;
 
 
 public class ChatMessage implements Serializable {
-    private String sender;
-    private String content;
-    private LocalDateTime timeStamp;
+    private final String sender;
+    private final String content;
+    private final LocalDateTime timeStamp;
 
 
     public ChatMessage(String sender, String content){

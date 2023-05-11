@@ -1,20 +1,12 @@
 package models;
 
-import java.io.IOException;
-import java.io.Serializable;
-import java.rmi.NotBoundException;
-import java.util.ArrayList;
+public class WhiteboardClient {
 
-public class WhiteboardClient implements Serializable {
-
-    private String username;
+    private final String username;
     private int roomID;
-    private ArrayList<ChatMessage> chatMessages;
 
-    public WhiteboardClient(String username) throws IOException, NotBoundException {
+    public WhiteboardClient(String username) {
         this.username = username;
-        this.chatMessages = new ArrayList<>();
-
     }
 
     @Override
@@ -30,7 +22,6 @@ public class WhiteboardClient implements Serializable {
     public int getRoomID() {
         return roomID;
     }
-
     public String getUsername() {
         return username;
     }
