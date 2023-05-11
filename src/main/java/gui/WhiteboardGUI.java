@@ -181,7 +181,7 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
             userListPanel.setLayout(new BoxLayout(userListPanel, BoxLayout.Y_AXIS));
             userPanel.add(userListPanel, BorderLayout.SOUTH); // add the userListPanel to the SOUTH of userPanel
         } catch (RemoteException e) {
-            PopUpDialog.showErrorMessageDialog("create room user list failed please check application status, server status and restart");
+            PopUpDialog.showErrorMessageDialog("create room user list failed please check application status, server status and restart",frame);
             throw new RuntimeException(e);
         }
 
@@ -254,8 +254,9 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
                         System.out.println("clicked twice"+e.getX()+" "+e.getY());
                         int x1= e.getX();
                         int y1=e.getY();
-                        JDialog dialog = new JDialog();
-                        dialog.setTitle("Enter Text");
+                        Point parentLocation = frame.getLocationOnScreen();
+                        JDialog dialog = new JDialog(frame,"Enter Text",true);
+                        dialog.setLocation(parentLocation.x + x1,parentLocation.y + y1);
                         dialog.setSize(300, 150);
                         dialog.setLayout(new BorderLayout());
                         // Add a text field to the JDialog
@@ -543,5 +544,9 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
     }
     public void unRegisterClient() throws NotBoundException, IOException {
         whiteboardApp.unRegisterClient();
+    }
+
+    public JFrame getFrame(){
+        return frame;
     }
 }

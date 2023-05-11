@@ -31,7 +31,7 @@ public class JoinWhiteBoard {
 
             boolean usernameExisted = remoteServer.checkUsernameExisted(userName,roomID);
             if (usernameExisted){
-                PopUpDialog.showErrorMessageDialog("Username has already existed in this room please use another one");
+                PopUpDialog.showErrorMessageDialog("Username has already existed in this room please use another one",null);
             }else {
                 boolean confirmed = remoteServer.confirmClientJoin(userName,roomID);
                 if (confirmed){
@@ -51,7 +51,7 @@ public class JoinWhiteBoard {
                     }
                 }
                 else {
-                    PopUpDialog.showErrorMessageDialog("The manager refused you to join.");
+                    PopUpDialog.showErrorMessageDialog("The manager refused you to join.",null);
 
                 }
             }
@@ -68,7 +68,7 @@ public class JoinWhiteBoard {
     public static void commandLineParser(String[] args) throws UnknownHostException {
         // Parse command line arguments
         if (args.length<1){
-            System.err.println("Usage: java -jar JoinWhiteboard.jar -i <ip address> -p <port number> -u <username>");
+            System.err.println("Usage: java -jar JoinWhiteboard.jar -i <ip address> -p <port number> -u <username> -r <room number>");
             System.exit(1);
         }
         for (int i = 0; i < args.length; i++) {

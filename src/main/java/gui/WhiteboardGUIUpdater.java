@@ -48,18 +48,18 @@ public class WhiteboardGUIUpdater extends UnicastRemoteObject implements IWhiteb
 
     @Override
     public void notifyRoomClose() throws RemoteException {
-        PopUpDialog.showErrorMessageDialog("The manager has closed the room, closing the application now");
+        PopUpDialog.showErrorMessageDialog("The manager has closed the room, closing the application now", whiteboardGUI.getFrame());
     }
 
     @Override
     public void notifyUserBeenKicked() throws IOException, NotBoundException {
         whiteboardGUI.unRegisterClient();
-        PopUpDialog.showErrorMessageDialog("You have been kicked out by the manager, closing the application now");
+        PopUpDialog.showErrorMessageDialog("You have been kicked out by the manager, closing the application now", whiteboardGUI.getFrame());
     }
 
     @Override
     public void notifyServerClosing() throws RemoteException {
-        PopUpDialog.showErrorMessageDialog("Server is closing, all room disconnecting, closing the application now");
+        PopUpDialog.showErrorMessageDialog("Server is closing, all room disconnecting, closing the application now", whiteboardGUI.getFrame());
     }
 
 }
