@@ -11,13 +11,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="06680185-165e-4e53-8000-00e0d7013382" name="Changes" comment="Cleaned code">
+    <list default="true" id="06680185-165e-4e53-8000-00e0d7013382" name="Changes" comment="Cleaned code for better structure">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/CreateWhiteboard_jar/CreateWhiteboard.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/CreateWhiteboard_jar/CreateWhiteboard.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/JoinWhiteboard_jar/JoinWhiteboard.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/JoinWhiteboard_jar/JoinWhiteboard.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/OnlineWhiteBoard_Server_jar/OnlineWhiteBoard_Server.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/OnlineWhiteBoard_Server_jar/OnlineWhiteBoard_Server.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/remoteObject/RemoteManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/remoteObject/RemoteManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/CreateWhiteboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/CreateWhiteboard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/JoinWhiteBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/JoinWhiteBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/constant/PopUpDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/constant/PopUpDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/WhiteboardGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/WhiteboardGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/WhiteboardGUIUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/WhiteboardGUIUpdater.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/WhiteboardManagerGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/WhiteboardManagerGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/WhiteboardManagerGUIUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/WhiteboardManagerGUIUpdater.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,25 +62,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/xu741/Documents/GitHub/DS_A2_OnlineWhiteBoard/out",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/xu741/Documents/GitHub/DS_A2_OnlineWhiteBoard/out&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="server" />
@@ -153,7 +158,9 @@
       <workItem from="1682426109898" duration="11414000" />
       <workItem from="1683088771342" duration="72650000" />
       <workItem from="1683336256969" duration="6456000" />
-      <workItem from="1683358458124" duration="21670000" />
+      <workItem from="1683358458124" duration="24183000" />
+      <workItem from="1683632711966" duration="592000" />
+      <workItem from="1683766967272" duration="2799000" />
     </task>
     <task id="LOCAL-00001" summary="Complete UI for whiteboard">
       <created>1682986677591</created>
@@ -232,7 +239,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683425003339</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Cleaned code for better structure">
+      <created>1683500454719</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1683500454719</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -261,7 +275,8 @@
     <MESSAGE value="Add in jar" />
     <MESSAGE value="Update on some logic" />
     <MESSAGE value="Cleaned code" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cleaned code" />
+    <MESSAGE value="Cleaned code for better structure" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cleaned code for better structure" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

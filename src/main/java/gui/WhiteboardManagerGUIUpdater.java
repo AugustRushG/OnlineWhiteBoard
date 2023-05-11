@@ -58,6 +58,6 @@ public class WhiteboardManagerGUIUpdater extends UnicastRemoteObject implements 
 
     @Override
     public void notifyServerClosing() throws RemoteException {
-        PopUpDialog.showErrorMessageDialog("Server has been closed, all room has been closed, closing application now");
+        PopUpDialog.showErrorMessageDialog("Server has been closed, all room has been closed, closing application now",whiteboardManagerGUI.getFrame());
     }
 }

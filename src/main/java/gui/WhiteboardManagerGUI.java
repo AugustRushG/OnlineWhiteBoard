@@ -151,7 +151,7 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
             RemoteObserver remoteObserver = new RemoteObserver(whiteboardGUIUpdater);
             whiteboardManagerApp.registerObserver(remoteObserver);
         } catch (RemoteException e) {
-            PopUpDialog.showErrorMessageDialog("Connecting to manager failed, please restart the app then try again");
+            PopUpDialog.showErrorMessageDialog("Connecting to manager failed, please restart the app then try again",frame);
             throw new RuntimeException(e);
         }
 
@@ -190,7 +190,7 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
             userListPanel.setLayout(new BoxLayout(userListPanel, BoxLayout.Y_AXIS));
             userPanel.add(userListPanel, BorderLayout.SOUTH); // add the userListPanel to the SOUTH of userPanel
         } catch (RemoteException e) {
-            PopUpDialog.showErrorMessageDialog("create room user list failed please check application status, server status and restart");
+            PopUpDialog.showErrorMessageDialog("create room user list failed please check application status, server status and restart",frame);
             throw new RuntimeException(e);
         }
 
@@ -257,9 +257,14 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
                 public void mouseClicked(MouseEvent e) {
                     if (e.getClickCount() == 2) { // check if mouse was clicked twice
                         System.out.println("clicked twice"+e.getX()+" "+e.getY());
-                        int x1= e.getX();
-                        int y1=e.getY();
-                        JDialog dialog = new JDialog(frame,"Enter Text",true);
+                        int x1 = e.getX();
+                        int y1 = e.getY();
+                        Point parentLocation = frame.getLocationOnScreen();
+                        System.out.println(parentLocation);
+                        JDialog dialog = new JDialog(frame,"Enter Text",false);
+                        dialog.pack();
+                        dialog.setLocationRelativeTo(paintSurface);
+                        dialog.setLocation(parentLocation.x + x1, parentLocation.y + y1);
                         dialog.setSize(300, 150);
                         dialog.setLayout(new BorderLayout());
                         // Add a text field to the JDialog
@@ -555,7 +560,7 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
     }
     public boolean popJoinDialog(String username){
         System.out.println("User "+username +" trying to join the room");
-        int option = JOptionPane.showConfirmDialog(null,
+        int option = JOptionPane.showConfirmDialog(frame,
                 username + " wants to join room" + ". Do you want to allow this?",
                 "Confirm Join Request", JOptionPane.YES_NO_OPTION);
         return option == JOptionPane.YES_OPTION;
@@ -572,7 +577,7 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
         System.exit(1);
     }
     public int popFileDialog(){
-        String[] options = {"Save Current Whiteboard", "Load Previous Whiteboard", "New Whiteboard", "Close Room"};
+        String[] options = {"Save Current Whiteboard", "Load Previous Whiteboard", "Close Room"};
         return JOptionPane.showOptionDialog(frame, "Select an option", "Options",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
                 null, options, options[0]);
@@ -640,6 +645,9 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
         }
     }
 
+    public JFrame getFrame(){
+        return frame;
+    }
 
 
 }

@@ -96,7 +96,7 @@ public class CreateWhiteboard {
 
             }catch (Exception e){
                 e.printStackTrace();
-                PopUpDialog.showErrorMessageDialog("creating room failed, please check server status and try again");
+                PopUpDialog.showErrorMessageDialog("creating room failed, please check server status and try again",null);
                 throw new RuntimeException(e);
             }
 
@@ -104,7 +104,7 @@ public class CreateWhiteboard {
 
         } catch (IOException | NotBoundException e) {
             PopUpDialog.showErrorMessageDialog("connecting to server failed, please check server status such as port number " +
-                    "and ip address then try again ");
+                    "and ip address then try again ",null);
             throw new RuntimeException(e);
         }
     }
