@@ -171,7 +171,7 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
                     if (evt.getClickCount() == 2) {
                         // Double-click detected
                         String selectedUser = (String) userList.getSelectedValue();
-                        int result = JOptionPane.showOptionDialog(null,"Select action to user","Actions",
+                        int result = JOptionPane.showOptionDialog(frame,"Select action to user","Actions",
                                 JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
                                 null, options, options[0]);
                         if (result ==0) {
@@ -256,17 +256,14 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     if (e.getClickCount() == 2) { // check if mouse was clicked twice
-                        System.out.println("clicked twice"+e.getX()+" "+e.getY());
+                        System.out.println("clicked twice "+e.getX()+" "+e.getY());
                         int x1 = e.getX();
                         int y1 = e.getY();
                         Point parentLocation = frame.getLocationOnScreen();
-                        System.out.println(parentLocation);
                         JDialog dialog = new JDialog(frame,"Enter Text",false);
                         dialog.pack();
-                        dialog.setLocationRelativeTo(paintSurface);
-                        dialog.setLocation(parentLocation.x + x1, parentLocation.y + y1);
                         dialog.setSize(300, 150);
-                        dialog.setLayout(new BorderLayout());
+//                        dialog.setLayout(new BorderLayout());
                         // Add a text field to the JDialog
                         JTextField textField = new JTextField();
                         dialog.add(textField, BorderLayout.CENTER);
@@ -276,24 +273,7 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
                             public void actionPerformed(ActionEvent e) {
                                 // Get the text from the text field and do something with it
                                 String text = textField.getText();
-                                System.out.println("User entered: " + text);
-                                System.out.println(penSize);
-                                try {
-                                    addText(text,currentColor,penSize,x1,y1);
-                                } catch (RemoteException ex) {
-                                    popConnectionDialog();
-                                    throw new RuntimeException(ex);
-                                }
-                                dialog.dispose(); // Close the dialog
-                                repaint();
-                            }
-                        });
-
-                        okButton.addKeyListener(new KeyAdapter() {
-                            @Override
-                            public void keyPressed(KeyEvent e) {
-                                if(e.getKeyCode()==KeyEvent.VK_ENTER){
-                                    String text = textField.getText();
+                                if (text.length()>0){
                                     System.out.println("User entered: " + text);
                                     System.out.println(penSize);
                                     try {
@@ -304,14 +284,15 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
                                     }
                                     dialog.dispose(); // Close the dialog
                                     repaint();
-
                                 }
+
                             }
                         });
+
                         dialog.add(okButton, BorderLayout.SOUTH);
 
                         // Set the location of the dialog to where the mouse was clicked
-                        dialog.setLocation(e.getX(), e.getY());
+                        dialog.setLocation(e.getX()+parentLocation.x, e.getY()+parentLocation.y);
                         // Show the dialog
                         dialog.setVisible(true);
 

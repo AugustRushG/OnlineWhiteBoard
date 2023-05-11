@@ -16,7 +16,6 @@ import server.remoteObject.RemoteServer;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.rmi.AlreadyBoundException;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -64,7 +63,7 @@ public class Server {
 
 
     }
-    public void createRoom(IRemoteManager remoteManager, int roomID) throws IOException, NotBoundException {
+    public void createRoom(IRemoteManager remoteManager, int roomID) throws IOException {
         WhiteboardManager manager = new WhiteboardManager(remoteManager.getUsername());
         Room room = new Room(manager,new HashMap<>(),roomID);
         roomMap.put(roomID,room);

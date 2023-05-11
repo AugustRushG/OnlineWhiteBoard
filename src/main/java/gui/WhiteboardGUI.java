@@ -256,7 +256,6 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
                         int y1=e.getY();
                         Point parentLocation = frame.getLocationOnScreen();
                         JDialog dialog = new JDialog(frame,"Enter Text",true);
-                        dialog.setLocation(parentLocation.x + x1,parentLocation.y + y1);
                         dialog.setSize(300, 150);
                         dialog.setLayout(new BorderLayout());
                         // Add a text field to the JDialog
@@ -268,26 +267,8 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
                             public void actionPerformed(ActionEvent e) {
                                 // Get the text from the text field and do something with it
                                 String text = textField.getText();
-                                System.out.println("User entered: " + text);
-                                System.out.println(penSize);
-                                try {
-                                    addText(text,currentColor,penSize,x1,y1);
-                                } catch (RemoteException ex) {
-                                    popConnectionDialog();
-                                    throw new RuntimeException(ex);
-                                }
-                                dialog.dispose(); // Close the dialog
-                                repaint();
-                            }
-                        });
-
-                        okButton.addKeyListener(new KeyAdapter() {
-                            @Override
-                            public void keyPressed(KeyEvent e) {
-                                if(e.getKeyCode()==KeyEvent.VK_ENTER){
-                                    String text = textField.getText();
+                                if (text.length()>0){
                                     System.out.println("User entered: " + text);
-                                    System.out.println(penSize);
                                     try {
                                         addText(text,currentColor,penSize,x1,y1);
                                     } catch (RemoteException ex) {
@@ -296,15 +277,13 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
                                     }
                                     dialog.dispose(); // Close the dialog
                                     repaint();
-
                                 }
                             }
                         });
+
                         dialog.add(okButton, BorderLayout.SOUTH);
-
                         // Set the location of the dialog to where the mouse was clicked
-                        dialog.setLocation(e.getX(), e.getY());
-
+                        dialog.setLocation(parentLocation.x + e.getX(),parentLocation.y + e.getY());
                         // Show the dialog
                         dialog.setVisible(true);
 
