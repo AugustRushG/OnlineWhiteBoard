@@ -1,11 +1,9 @@
 package models;
 
-import gui.MyShape;
-import gui.MyText;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Whiteboard {
+public class Whiteboard implements Serializable {
     public ArrayList<MyShape> shapes;
     public ArrayList<MyText> texts;
 

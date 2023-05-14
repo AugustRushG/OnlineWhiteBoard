@@ -3,6 +3,9 @@ package gui;
 import application.WhiteboardApp;
 import constant.PopUpDialog;
 import models.ChatMessage;
+import models.MyShape;
+import models.MyText;
+import server.remoteObject.RemoteObserver;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -40,7 +43,7 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
     public WhiteboardGUI(WhiteboardApp whiteboardApp) throws RemoteException {
         this.whiteboardApp = whiteboardApp;
         frame = new JFrame();
-        frame.setTitle("Whiteboard Client");
+        frame.setTitle("Whiteboard Client " + whiteboardApp.getUsername());
 
         // Set the size of the window
         frame.setSize(1000, 800);
@@ -448,11 +451,6 @@ public class WhiteboardGUI implements  ActionListener, ChangeListener {
             whiteboardApp.sendText(texts);
         }
 
-        private void clearAll(){
-            shapes = new ArrayList<>();
-            texts = new ArrayList<>();
-            repaint();
-        }
 
         private void changeShape(ArrayList<MyShape> myShapes){
             shapes = myShapes;

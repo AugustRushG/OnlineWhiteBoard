@@ -1,10 +1,9 @@
 package server.remoteObject;
 
-import gui.MyShape;
-import gui.MyText;
+import models.MyShape;
+import models.MyText;
 import models.ChatMessage;
 
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 

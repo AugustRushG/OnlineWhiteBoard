@@ -1,7 +1,9 @@
-package gui;
+package server.remoteObject;
 
+import gui.IWhiteboardGUIUpdater;
 import models.ChatMessage;
-import server.remoteObject.IRemoteObserver;
+import models.MyShape;
+import models.MyText;
 
 import java.io.IOException;
 import java.io.Serializable;

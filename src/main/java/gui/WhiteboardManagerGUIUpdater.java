@@ -1,6 +1,8 @@
 package gui;
 
 import constant.PopUpDialog;
+import models.MyShape;
+import models.MyText;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;

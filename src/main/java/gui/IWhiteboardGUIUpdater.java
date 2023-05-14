@@ -1,5 +1,8 @@
 package gui;
 
+import models.MyShape;
+import models.MyText;
+
 import java.io.IOException;
 import java.rmi.NotBoundException;
 import java.rmi.Remote;

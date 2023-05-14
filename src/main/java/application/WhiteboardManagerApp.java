@@ -1,7 +1,7 @@
 package application;
 
-import gui.MyShape;
-import gui.MyText;
+import models.MyShape;
+import models.MyText;
 import gui.WhiteboardManagerGUI;
 import models.ChatMessage;
 import server.remoteObject.IRemoteManager;
@@ -48,4 +48,7 @@ public class WhiteboardManagerApp{
         remoteManager.kickUser(username);
     }
 
+    public String getUsername() throws RemoteException {
+        return remoteManager.getUsername();
+    }
 }

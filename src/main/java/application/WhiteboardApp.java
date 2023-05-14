@@ -1,7 +1,7 @@
 package application;
 
-import gui.MyShape;
-import gui.MyText;
+import models.MyShape;
+import models.MyText;
 import gui.WhiteboardGUI;
 import models.ChatMessage;
 import server.remoteObject.IRemoteClient;
@@ -55,5 +55,9 @@ public class WhiteboardApp{
 
     public void unRegisterClient() throws IOException, NotBoundException {
         remoteServer.unRegisterClient(remoteClient,username, remoteClient.getRoomId());
+    }
+
+    public String getUsername(){
+        return username;
     }
 }

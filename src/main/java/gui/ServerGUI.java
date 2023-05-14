@@ -26,8 +26,6 @@ public class ServerGUI {
                 try {
                     server.broadCastAllRoomsServerClosing();
                 } catch (IOException ignored) {
-                }
-                finally {
                     System.exit(0);
                 }
             }
