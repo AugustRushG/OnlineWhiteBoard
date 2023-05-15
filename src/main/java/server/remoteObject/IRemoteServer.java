@@ -15,4 +15,8 @@ public interface IRemoteServer extends Remote {
     void unRegisterClient(IRemoteClient client, String username, int roomID) throws IOException, NotBoundException;
 
     IRemoteManager registerManager( String username) throws NotBoundException, IOException;
+
+    void unRegisterManager(Integer roomID) throws RemoteException;
+    void heartbeat(Integer roomID) throws RemoteException;
+    void clientHeartbeat(String username, Integer roomID) throws RemoteException;
 }

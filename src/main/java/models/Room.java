@@ -1,8 +1,5 @@
 package models;
 
-import gui.MyShape;
-import gui.MyText;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 

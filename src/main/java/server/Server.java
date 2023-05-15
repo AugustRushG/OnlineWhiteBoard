@@ -1,13 +1,8 @@
 package server;
 
 import constant.RegistryConstant;
-import gui.MyShape;
-import gui.MyText;
 import gui.ServerGUI;
-import models.ChatMessage;
-import models.Room;
-import models.WhiteboardClient;
-import models.WhiteboardManager;
+import models.*;
 import server.remoteObject.IRemoteManager;
 import server.remoteObject.RemoteClient;
 import server.remoteObject.RemoteManager;
@@ -22,11 +17,15 @@ import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 public class Server {
     private final Map<Integer,Room> roomMap;
     private final ServerGUI serverGUI;
     private final Map<Integer, IRemoteManager> remoteManagerMap;
+    ExecutorService executorServiceThreadPool = Executors.newFixedThreadPool(10);
     public Server(){
         roomMap = new HashMap<>();
         serverGUI = new ServerGUI(this);
@@ -39,7 +38,8 @@ public class Server {
 
             RemoteManager remoteManager = new RemoteManager();
             RemoteClient remoteClient = new RemoteClient();
-            RemoteServer remoteServer = new RemoteServer();
+            ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+            RemoteServer remoteServer = new RemoteServer(executorService);
 
             Registry registry = LocateRegistry.getRegistry();
             // provide service
@@ -94,11 +94,13 @@ public class Server {
         for (Map.Entry<Integer, IRemoteManager> entry : remoteManagerMap.entrySet()) {
             IRemoteManager manager = entry.getValue();
             // Do something with the clientName and client
-            try {
-                manager.notifyServerClosing();
-            }catch (RemoteException ignored){
-
-            }
+            executorServiceThreadPool.submit(() -> {
+                try {
+                    manager.notifyServerClosing();
+                } catch (RemoteException e) {
+                    throw new RuntimeException(e);
+                }
+            });
 
         }
     }

@@ -9,8 +9,11 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+
+import static client.JoinWhiteBoard.HEARTBEAT_INTERVAL_MS;
 
 public class CreateWhiteboard {
     private static int serverPort;
@@ -89,6 +92,7 @@ public class CreateWhiteboard {
 //                RemoteManager manager = new RemoteManager();
 //                remoteManager.createRoom(manager,userName);
                 IRemoteManager remoteManager = remoteServer.registerManager(userName);
+                start(remoteServer,remoteManager.getRoomID());
                 // create the app
                 WhiteboardManagerApp whiteboardManagerApp = new WhiteboardManagerApp(remoteManager);
                 // start whiteboard app
@@ -107,6 +111,19 @@ public class CreateWhiteboard {
                     "and ip address then try again ",null);
             throw new RuntimeException(e);
         }
+    }
+
+    public static void start(IRemoteServer server, Integer roomID) throws RemoteException {
+        new Thread(() -> {
+            while (true) {
+                try {
+                    server.heartbeat(roomID);
+                    Thread.sleep(HEARTBEAT_INTERVAL_MS);
+                } catch (RemoteException | InterruptedException e) {
+                    PopUpDialog.showErrorMessageDialog("Connection failed to server exiting now ",null);
+                }
+            }
+        }).start();
     }
 
 

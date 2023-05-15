@@ -11,17 +11,37 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="06680185-165e-4e53-8000-00e0d7013382" name="Changes" comment="Fixed Dialog bugs with parents">
+    <list default="true" id="06680185-165e-4e53-8000-00e0d7013382" name="Changes" comment="Fixed bugs on dialog not appear at the correct position. Cleaned code">
+      <change afterPath="$PROJECT_DIR$/src/main/java/server/ClientHeartbeatMonitor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/server/HeartbeatMonitor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/CreateWhiteboard_jar/CreateWhiteboard.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/CreateWhiteboard_jar/CreateWhiteboard.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/JoinWhiteboard_jar/JoinWhiteboard.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/JoinWhiteboard_jar/JoinWhiteboard.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/OnlineWhiteBoard_Server_jar/OnlineWhiteBoard_Server.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/OnlineWhiteBoard_Server_jar/OnlineWhiteBoard_Server.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/WhiteboardApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/WhiteboardApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/WhiteboardManagerApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/WhiteboardManagerApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/CreateWhiteboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/CreateWhiteboard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/JoinWhiteBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/JoinWhiteBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/constant/PopUpDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/constant/PopUpDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/IWhiteboardGUIUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/IWhiteboardGUIUpdater.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/MyShape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/MyShape.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/MyText.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/MyText.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/RemoteObserver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/remoteObject/RemoteObserver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/ServerGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/ServerGUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/gui/WhiteboardGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/WhiteboardGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/WhiteboardGUIUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/WhiteboardGUIUpdater.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/gui/WhiteboardManagerGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/WhiteboardManagerGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/WhiteboardManagerGUIUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/WhiteboardManagerGUIUpdater.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/models/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Room.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/models/Whiteboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Whiteboard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/WhiteboardClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/WhiteboardClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/WhiteboardManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/WhiteboardManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/remoteObject/IRemoteClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/remoteObject/IRemoteClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/remoteObject/IRemoteManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/remoteObject/IRemoteManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/remoteObject/IRemoteObserver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/remoteObject/IRemoteObserver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/remoteObject/IRemoteServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/remoteObject/IRemoteServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/remoteObject/RemoteClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/remoteObject/RemoteClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/remoteObject/RemoteManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/remoteObject/RemoteManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/remoteObject/RemoteServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/remoteObject/RemoteServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,6 +102,8 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="server.remoteObject" />
+      <recent name="models" />
       <recent name="server" />
       <recent name="" />
     </key>
@@ -159,7 +181,10 @@
       <workItem from="1683336256969" duration="6456000" />
       <workItem from="1683358458124" duration="24183000" />
       <workItem from="1683632711966" duration="592000" />
-      <workItem from="1683766967272" duration="4652000" />
+      <workItem from="1683766967272" duration="10784000" />
+      <workItem from="1683988553420" duration="5000" />
+      <workItem from="1684054883320" duration="340000" />
+      <workItem from="1684055242829" duration="11612000" />
     </task>
     <task id="LOCAL-00001" summary="Complete UI for whiteboard">
       <created>1682986677591</created>
@@ -252,7 +277,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683769996568</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Fixed bugs on dialog not appear at the correct position. Cleaned code">
+      <created>1683796388617</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1683796388617</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -283,24 +315,34 @@
     <MESSAGE value="Cleaned code" />
     <MESSAGE value="Cleaned code for better structure" />
     <MESSAGE value="Fixed Dialog bugs with parents" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed Dialog bugs with parents" />
+    <MESSAGE value="Fixed bugs on dialog not appear at the correct position. Cleaned code" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed bugs on dialog not appear at the correct position. Cleaned code" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/gui/WhiteboardGUI.java</url>
-          <line>204</line>
+          <line>207</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/gui/WhiteboardManagerGUI.java</url>
-          <line>221</line>
+          <line>226</line>
           <properties method="mouseReleased">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/application/WhiteboardManagerApp.java</url>
+          <line>46</line>
+          <properties class="application.WhiteboardManagerApp" method="kickUser">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

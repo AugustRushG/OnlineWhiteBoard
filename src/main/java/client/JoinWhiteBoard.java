@@ -16,6 +16,7 @@ import java.rmi.registry.Registry;
 
 
 public class JoinWhiteBoard {
+    public static final long HEARTBEAT_INTERVAL_MS = 10000;
     public static int serverPort;
     public static String serverAddress;
     public static String userName;
@@ -38,7 +39,7 @@ public class JoinWhiteBoard {
                     try {
                         // try register to the manager
                         IRemoteClient remoteClient = remoteServer.registerClientToRoom(roomID,userName);
-
+//                        start(remoteServer);
                         // create the app
                         WhiteboardApp whiteboardApp = new WhiteboardApp(remoteClient,remoteServer, userName);
                         // start whiteboard app
@@ -116,5 +117,18 @@ public class JoinWhiteBoard {
         System.out.println("Username: " + userName);
         System.out.println("roomID: "+roomID);
         System.out.println("connecting to host now");
+    }
+
+    public static void start(IRemoteServer server) throws RemoteException {
+        new Thread(() -> {
+            while (true) {
+                try {
+                    server.clientHeartbeat(userName,roomID);
+                    Thread.sleep(HEARTBEAT_INTERVAL_MS);
+                } catch (RemoteException | InterruptedException e) {
+                    PopUpDialog.showErrorMessageDialog_noExit("connection failed exiting now",null);
+                }
+            }
+        }).start();
     }
 }

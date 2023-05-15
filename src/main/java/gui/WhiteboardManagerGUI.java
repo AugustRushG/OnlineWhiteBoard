@@ -2,7 +2,11 @@ package gui;
 
 import application.WhiteboardManagerApp;
 import constant.PopUpDialog;
+import models.MyShape;
+import models.MyText;
 import models.Whiteboard;
+import server.remoteObject.RemoteObserver;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -31,13 +35,14 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
     private final JList<String> userList;
     private final JTextArea chatArea;
     private final WhiteboardManagerApp whiteboardManagerApp;
+    private String filePath;
 
     public WhiteboardManagerGUI(WhiteboardManagerApp whiteboardManagerApp) throws RemoteException {
         this.whiteboardManagerApp = whiteboardManagerApp;
 
 
         frame = new JFrame();
-        frame.setTitle("Whiteboard");
+        frame.setTitle("Whiteboard "+whiteboardManagerApp.getUsername());
 
         // Set the size of the window
         frame.setSize(1000, 800);
@@ -50,10 +55,9 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
                 try {
                     whiteboardManagerApp.closeRoom();
                 } catch (IOException ignored) {
-                }
-                finally {
                     System.exit(0);
                 }
+
             }
         });
 
@@ -165,19 +169,20 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
             userPanel.add(roomLabel, BorderLayout.NORTH);
             userList = new JList<>();
             updateUserList(whiteboardManagerApp.getUserInRoom());
-            String[] options = {"Kick User"," "};
+            String[] options = {"Kick User"};
             userList.addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent evt) {
                     if (evt.getClickCount() == 2) {
                         // Double-click detected
-                        String selectedUser = (String) userList.getSelectedValue();
+                        String selectedUser = userList.getSelectedValue();
                         int result = JOptionPane.showOptionDialog(frame,"Select action to user","Actions",
                                 JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
                                 null, options, options[0]);
                         if (result ==0) {
                             try {
                                 kickUser(selectedUser);
-                            } catch (IOException | NotBoundException e) {
+                            } catch (IOException | NotBoundException ignored) {
+                                PopUpDialog.showErrorMessageDialog("Kick failed exiting the application now ", frame);
                             }
                         }
                     }
@@ -517,8 +522,10 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
                 whiteboard.setShapes(paintSurface.getShapes());
                 // Create an ObjectOutputStream with a FileOutputStream to write the whiteboard to a file
                 saveWhiteboard();
-            } else if (action == 1) {
+            } else if (action == 2) {
                 loadWhiteboard();
+            } else if (action == 1) {
+                saveCurrentWhiteboard();
             }
         }
     }
@@ -558,7 +565,7 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
         System.exit(1);
     }
     public int popFileDialog(){
-        String[] options = {"Save Current Whiteboard", "Load Previous Whiteboard", "Close Room"};
+        String[] options = {"Save As", "Save", "Load Previous Whiteboard", "Close Room"};
         return JOptionPane.showOptionDialog(frame, "Select an option", "Options",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
                 null, options, options[0]);
@@ -586,12 +593,33 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
 
             try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(fileToSave))) {
                 outputStream.writeObject(whiteboard);
-                JOptionPane.showMessageDialog(null, "File name saved at "+ fileToSave.getAbsolutePath());
+                JOptionPane.showMessageDialog(frame, "File name saved at "+ fileToSave.getAbsolutePath());
                 System.out.println("Whiteboard saved successfully to " + fileToSave.getAbsolutePath());
             } catch (IOException ex) {
                 ex.printStackTrace();
+                PopUpDialog.showErrorMessageDialog("whiteboard save failed please try again",frame);
                 System.err.println("Error saving whiteboard: " + ex.getMessage());
             }
+        }
+    }
+
+    private void saveCurrentWhiteboard(){
+
+        try {
+            if (filePath == null){
+                PopUpDialog.showErrorMessageDialog_noExit("You have to load a whiteboard first",frame);
+                return;
+            }
+            Whiteboard whiteboard = new Whiteboard();
+            whiteboard.setTexts(paintSurface.getTexts());
+            whiteboard.setShapes(paintSurface.getShapes());
+            ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(filePath));
+            outputStream.writeObject((whiteboard));
+            PopUpDialog.showConfirmMessage("Whiteboard saved successfully",frame);
+            System.out.println("Whiteboard saved successfully");
+        } catch (IOException e) {
+            PopUpDialog.showErrorMessageDialog_noExit("whiteboard save failed please try again",frame);
+            System.err.println("Error saving whiteboard: " + e.getMessage());
         }
     }
     private void loadWhiteboard() {
@@ -611,6 +639,7 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
                 // Set the whiteboard on the paint surface
                 paintSurface.changeText(whiteboard.getTexts());
                 paintSurface.changeShape(whiteboard.getShapes());
+                filePath = selectedFile.getAbsolutePath();
                 System.out.println("Whiteboard loaded successfully from " + selectedFile.getAbsolutePath());
                 try {
                     whiteboardManagerApp.sendShape(whiteboard.getShapes());
