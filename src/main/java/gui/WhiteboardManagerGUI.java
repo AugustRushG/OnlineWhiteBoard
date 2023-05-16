@@ -432,9 +432,7 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
         private Ellipse2D.Float makeEllipse(int x1, int y1, int x2, int y2) {
             if (currentShape.equals("Circle")){
                 int diameter = Math.min(Math.abs(x1 - x2), Math.abs(y1 - y2));
-                int centerX = Math.min(x1, x2) + diameter / 2;
-                int centerY = Math.min(y1, y2) + diameter / 2;
-                return new Ellipse2D.Float(centerX - diameter / 2, centerY - diameter / 2, diameter, diameter);
+                return new Ellipse2D.Float(Math.min(x1, x2), Math.min(y1, y2), diameter, diameter);
             }
             return new Ellipse2D.Float(Math.min(x1, x2), Math.min(y1, y2), Math.abs(x1 - x2), Math.abs(y1 - y2));
         }
@@ -526,6 +524,13 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
                 loadWhiteboard();
             } else if (action == 1) {
                 saveCurrentWhiteboard();
+            } else if (action == 4) {
+                filePath = null;
+                try {
+                    paintSurface.clearAll();
+                } catch (RemoteException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         }
     }
@@ -565,7 +570,7 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
         System.exit(1);
     }
     public int popFileDialog(){
-        String[] options = {"Save As", "Save", "Load Previous Whiteboard", "Close Room"};
+        String[] options = {"Save As", "Save", "Load Previous Whiteboard", "Close Room", "New Whiteboard"};
         return JOptionPane.showOptionDialog(frame, "Select an option", "Options",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
                 null, options, options[0]);
@@ -594,6 +599,7 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
             try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(fileToSave))) {
                 outputStream.writeObject(whiteboard);
                 JOptionPane.showMessageDialog(frame, "File name saved at "+ fileToSave.getAbsolutePath());
+                filePath = fileToSave.getAbsolutePath();
                 System.out.println("Whiteboard saved successfully to " + fileToSave.getAbsolutePath());
             } catch (IOException ex) {
                 ex.printStackTrace();
@@ -602,12 +608,11 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
             }
         }
     }
-
     private void saveCurrentWhiteboard(){
 
         try {
             if (filePath == null){
-                PopUpDialog.showErrorMessageDialog_noExit("You have to load a whiteboard first",frame);
+                PopUpDialog.showErrorMessageDialog_noExit("You have to load or save as a whiteboard first",frame);
                 return;
             }
             Whiteboard whiteboard = new Whiteboard();
