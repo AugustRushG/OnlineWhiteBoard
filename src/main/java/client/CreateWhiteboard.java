@@ -71,8 +71,8 @@ public class CreateWhiteboard {
         }
         if (serverAddress==null){
             InetAddress ip = InetAddress.getLocalHost();
-            System.out.println("No ip address input, using default " + ip);
-            serverAddress = String.valueOf(ip);
+            System.out.println("No ip address input, using default " + ip.getHostAddress());
+            serverAddress = String.valueOf(ip.getHostAddress());
         }
 
         // Use the parsed values

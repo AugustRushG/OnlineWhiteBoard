@@ -27,7 +27,7 @@ public class JoinWhiteBoard {
         commandLineParser(args);
 
         try {
-            Registry registry = LocateRegistry.getRegistry(serverAddress);
+            Registry registry = LocateRegistry.getRegistry(serverAddress,serverPort);
             IRemoteServer remoteServer = (IRemoteServer) registry.lookup(RegistryConstant.REMOTE_SERVER);
 
             boolean usernameExisted = remoteServer.checkUsernameExisted(userName,roomID);
@@ -107,8 +107,8 @@ public class JoinWhiteBoard {
         }
         if (serverAddress==null){
             InetAddress ip = InetAddress.getLocalHost();
-            System.out.println("No ip address input, using default " + String.valueOf(ip));
-            serverAddress = "localhost";
+            System.out.println("No ip address input, using default " + ip.getHostAddress());
+            serverAddress = ip.getHostAddress();
         }
 
         // Use the parsed values
