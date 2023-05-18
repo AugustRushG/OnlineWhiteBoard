@@ -71,8 +71,8 @@ public class CreateWhiteboard {
         }
         if (serverAddress==null){
             InetAddress ip = InetAddress.getLocalHost();
-            System.out.println("No ip address input, using default " + String.valueOf(ip));
-            serverAddress = "localhost";
+            System.out.println("No ip address input, using default " + ip);
+            serverAddress = String.valueOf(ip);
         }
 
         // Use the parsed values
@@ -85,7 +85,7 @@ public class CreateWhiteboard {
     public static void createWhiteboardApp(){
         try{
             // bind remote objects
-            Registry registry = LocateRegistry.getRegistry("192.168.20.12");
+            Registry registry = LocateRegistry.getRegistry(serverAddress,serverPort);
             IRemoteServer remoteServer = (IRemoteServer) registry.lookup(RegistryConstant.REMOTE_SERVER);
             try {
                 // create room in server
@@ -107,8 +107,10 @@ public class CreateWhiteboard {
 
 
         } catch (IOException | NotBoundException e) {
+            e.printStackTrace();
             PopUpDialog.showErrorMessageDialog("connecting to server failed, please check server status such as port number " +
                     "and ip address then try again ",null);
+
             throw new RuntimeException(e);
         }
     }
