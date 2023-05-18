@@ -175,16 +175,23 @@ public class WhiteboardManagerGUI implements ActionListener, ChangeListener{
                     if (evt.getClickCount() == 2) {
                         // Double-click detected
                         String selectedUser = userList.getSelectedValue();
-                        int result = JOptionPane.showOptionDialog(frame,"Select action to user","Actions",
-                                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
-                                null, options, options[0]);
-                        if (result ==0) {
-                            try {
-                                kickUser(selectedUser);
-                            } catch (IOException | NotBoundException ignored) {
-                                PopUpDialog.showErrorMessageDialog("Kick failed exiting the application now ", frame);
+                        try {
+                            if(!selectedUser.equals(whiteboardManagerApp.getUsername())){
+                                int result = JOptionPane.showOptionDialog(frame,"Select action to user","Actions",
+                                        JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                                        null, options, options[0]);
+                                if (result ==0) {
+                                    try {
+                                        kickUser(selectedUser);
+                                    } catch (IOException | NotBoundException ignored) {
+                                        PopUpDialog.showErrorMessageDialog("Kick failed exiting the application now ", frame);
+                                    }
+                                }
                             }
+                        } catch (RemoteException e) {
+                            throw new RuntimeException(e);
                         }
+
                     }
                 }
             });
