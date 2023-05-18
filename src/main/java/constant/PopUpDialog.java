@@ -12,6 +12,6 @@ public class PopUpDialog {
     }
 
     public static void showConfirmMessage(String message, JFrame parent){
-        JOptionPane.showConfirmDialog(parent,message,"Message",JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(parent,message,"Message",JOptionPane.INFORMATION_MESSAGE);
     }
 }
