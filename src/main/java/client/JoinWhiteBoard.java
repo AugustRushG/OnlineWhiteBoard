@@ -6,6 +6,7 @@ import constant.RegistryConstant;
 import server.remoteObject.IRemoteClient;
 import server.remoteObject.IRemoteServer;
 
+import javax.swing.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.rmi.AccessException;
@@ -30,6 +31,10 @@ public class JoinWhiteBoard {
             Registry registry = LocateRegistry.getRegistry(serverAddress,serverPort);
             IRemoteServer remoteServer = (IRemoteServer) registry.lookup(RegistryConstant.REMOTE_SERVER);
 
+            boolean roomExisted = remoteServer.checkRoomExisted(roomID);
+            if (!roomExisted){
+                PopUpDialog.showErrorMessageDialog("room doesnt exist please check then try again",null);
+            }
             boolean usernameExisted = remoteServer.checkUsernameExisted(userName,roomID);
             if (usernameExisted){
                 PopUpDialog.showErrorMessageDialog("Username has already existed in this room please use another one",null);
@@ -46,77 +51,91 @@ public class JoinWhiteBoard {
                         whiteboardApp.createWhiteboard();
 
                     }catch (Exception e){
-                        e.printStackTrace();
-                        throw new RuntimeException("creating room failed, please check server status and try again " + e);
-
+                        PopUpDialog.showErrorMessageDialog("Join room failed, please check server status and try again ",null);
                     }
                 }
                 else {
                     PopUpDialog.showErrorMessageDialog("The manager refused you to join.",null);
-
                 }
             }
 
-
-        } catch (AccessException | NotBoundException e) {
-            throw new RuntimeException(e);
-        } catch (RemoteException e) {
-            System.err.println("Connection failed, Please check that you have entered correct server address and portNumber");
-//            throw new RuntimeException(e);
+        } catch (NotBoundException | RemoteException e) {
+            PopUpDialog.showErrorMessageDialog("Connection failed, Please check that you have entered correct server address and portNumber",null);
         }
     }
 
     public static void commandLineParser(String[] args) throws UnknownHostException {
-        // Parse command line arguments
-        if (args.length<1){
-            System.err.println("Usage: java -jar JoinWhiteboard.jar -i <ip address> -p <port number> -u <username> -r <room number>");
-            System.exit(1);
-        }
+        // Declare variables
+        serverAddress = null;
+        serverPort = 0;
+        userName = null;
+
+
+        // Process command-line arguments
         for (int i = 0; i < args.length; i++) {
             if (args[i].equals("-p") && i < args.length - 1) {
                 // Parse port number
                 try {
                     serverPort = Integer.parseInt(args[i+1]);
                 } catch (NumberFormatException e) {
-                    System.err.println("Invalid port number: " + args[i+1]);
+                    JOptionPane.showMessageDialog(null, "Invalid port number: " + args[i+1]);
                     System.exit(1);
                 }
             } else if (args[i].equals("-u") && i < args.length - 1) {
                 // Parse username
                 userName = args[i+1];
-            } else if (args[i].equals("-i") && i <args.length - 1) {
+            } else if (args[i].equals("-i") && i < args.length - 1) {
                 serverAddress = args[i+1];
-            }
-            else if(args[i].equals("-r") && i< args.length-1){
-                roomID = Integer.parseInt(args[i+1]);
             }
         }
 
-        // Check if all required arguments were provided
-        if (userName == null) {
-            System.err.println("Usage: java MyProgram -u <username>\n you have to specify your user name before connecting");
-            System.exit(1);
+        // Prompt user for missing arguments
+        if (userName == null || userName.trim().isEmpty()) {
+            do {
+                userName = JOptionPane.showInputDialog(null, "Please enter your username:");
+            } while (userName == null || userName.trim().isEmpty());
         }
-        if (roomID == 0){
-            System.err.println("Usage: java MyProgram -r <roomID>\n you have to specify the ID of the room you want to connect to before connecting");
-            System.exit(1);
+        if (serverPort == 0) {
+            String portInput = JOptionPane.showInputDialog(null, "Enter server port number (default 1099):");
+            if (portInput != null && !portInput.isEmpty()) {
+                try {
+                    serverPort = Integer.parseInt(portInput);
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Invalid port number: " + portInput);
+                    System.exit(1);
+                }
+            } else {
+                serverPort = 1099;
+            }
         }
-        if (serverPort==0){
-            System.out.println("No port number input, using default 1099");
-            serverPort = 1099;
+        if (serverAddress == null) {
+            String addressInput = JOptionPane.showInputDialog(null, "Enter server address (default local host):");
+            if (addressInput != null && !addressInput.isEmpty()) {
+                serverAddress = addressInput;
+            } else {
+                InetAddress ip = InetAddress.getLocalHost();
+                serverAddress = ip.getHostAddress();
+            }
         }
-        if (serverAddress==null){
-            InetAddress ip = InetAddress.getLocalHost();
-            System.out.println("No ip address input, using default " + ip.getHostAddress());
-            serverAddress = ip.getHostAddress();
+        if (roomID == 0) {
+            do {
+                String roomIDInput = JOptionPane.showInputDialog(null, "Enter room number:");
+                try {
+                    roomID = Integer.parseInt(roomIDInput);
+                } catch (NumberFormatException e) {
+                    roomID = 0;
+                }
+            } while (roomID == 0);
         }
 
         // Use the parsed values
-        System.out.println("Server address: " + serverAddress);
-        System.out.println("Port number: " + serverPort);
-        System.out.println("Username: " + userName);
-        System.out.println("roomID: "+roomID);
-        System.out.println("connecting to host now");
+        JOptionPane.showMessageDialog(null,
+                "Server address: " + serverAddress + "\n" +
+                        "Port number: " + serverPort + "\n" +
+                        "Username: " + userName + "\n" +
+                        "Connecting to host now application will appear once connection is established");
+
+        // Connect to host and perform further actions
     }
 
     public static void start(IRemoteServer server) throws RemoteException {

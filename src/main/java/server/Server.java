@@ -90,6 +90,10 @@ public class Server {
         Room room = roomMap.get(roomID);
         return room.checkUsernameExist(username);
     }
+
+    public boolean checkRoomExisted(int roomID){
+        return roomMap.containsKey(roomID);
+    }
     public void broadCastAllRoomsServerClosing() throws RemoteException {
         for (Map.Entry<Integer, IRemoteManager> entry : remoteManagerMap.entrySet()) {
             IRemoteManager manager = entry.getValue();

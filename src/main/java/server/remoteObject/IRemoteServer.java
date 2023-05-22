@@ -10,6 +10,7 @@ public interface IRemoteServer extends Remote {
 
     boolean checkUsernameExisted(String username, int roomID) throws RemoteException;
 
+    boolean checkRoomExisted(int roomID) throws RemoteException;
     boolean confirmClientJoin(String username, int roomID) throws RemoteException;
 
     void unRegisterClient(IRemoteClient client, String username, int roomID) throws IOException, NotBoundException;

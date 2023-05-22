@@ -49,6 +49,11 @@ public class RemoteServer extends UnicastRemoteObject implements IRemoteServer {
     }
 
     @Override
+    public boolean checkRoomExisted(int roomID) throws RemoteException {
+        return server.checkRoomExisted(roomID);
+    }
+
+    @Override
     public boolean confirmClientJoin(String username, int roomID) throws RemoteException {
         return server.getManager(roomID).notifyJoinRequest(username);
     }
