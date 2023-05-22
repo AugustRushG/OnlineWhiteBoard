@@ -93,11 +93,19 @@ public class JoinWhiteBoard {
         if (userName == null || userName.trim().isEmpty()) {
             do {
                 userName = JOptionPane.showInputDialog(null, "Please enter your username:");
-            } while (userName == null || userName.trim().isEmpty());
+                if (userName == null) {
+                    // User clicked Cancel, exit the program
+                    System.exit(0);
+                }
+            } while (userName.trim().isEmpty());
         }
         if (serverPort == 0) {
             String portInput = JOptionPane.showInputDialog(null, "Enter server port number (default 1099):");
-            if (portInput != null && !portInput.isEmpty()) {
+            if (portInput == null) {
+                // User clicked Cancel, exit the program
+                System.exit(0);
+            }
+            if (!portInput.isEmpty()) {
                 try {
                     serverPort = Integer.parseInt(portInput);
                 } catch (NumberFormatException e) {
@@ -108,18 +116,34 @@ public class JoinWhiteBoard {
                 serverPort = 1099;
             }
         }
+
         if (serverAddress == null) {
             String addressInput = JOptionPane.showInputDialog(null, "Enter server address (default local host):");
-            if (addressInput != null && !addressInput.isEmpty()) {
+            if (addressInput == null) {
+                // User clicked Cancel, exit the program
+                System.exit(0);
+            }
+            if (!addressInput.isEmpty()) {
                 serverAddress = addressInput;
             } else {
-                InetAddress ip = InetAddress.getLocalHost();
-                serverAddress = ip.getHostAddress();
+                InetAddress ip;
+                try {
+                    ip = InetAddress.getLocalHost();
+                    serverAddress = ip.getHostAddress();
+                } catch (UnknownHostException ex) {
+                    JOptionPane.showMessageDialog(null, "Failed to get local host address.");
+                    System.exit(1);
+                }
             }
         }
+
         if (roomID == 0) {
             do {
                 String roomIDInput = JOptionPane.showInputDialog(null, "Enter room number:");
+                if (roomIDInput == null) {
+                    // User clicked Cancel, exit the program
+                    System.exit(0);
+                }
                 try {
                     roomID = Integer.parseInt(roomIDInput);
                 } catch (NumberFormatException e) {
@@ -127,6 +151,7 @@ public class JoinWhiteBoard {
                 }
             } while (roomID == 0);
         }
+
 
         Thread connectionThread = new Thread(() -> {
             // Use the parsed values
