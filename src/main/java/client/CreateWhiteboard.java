@@ -91,14 +91,20 @@ public class CreateWhiteboard {
         }
 
 
-        // Use the parsed values
-        JOptionPane.showMessageDialog(null,
-                "Server address: " + serverAddress + "\n" +
-                        "Port number: " + serverPort + "\n" +
-                        "Username: " + userName + "\n" +
-                        "Connecting to host now, application will appear once connection is established");
+        Thread connectionThread = new Thread(() -> {
+            // Use the parsed values
+            JOptionPane.showMessageDialog(null,
+                    "Server address: " + serverAddress + "\n" +
+                            "Port number: " + serverPort + "\n" +
+                            "Username: " + userName + "\n" +
+                            "Connecting to host now, application will appear once connection is established");
 
-        // Connect to host and perform further actions
+            // Connect to host and perform further actions
+            // Add your code here to connect to the host and perform the necessary actions
+        });
+        connectionThread.start();
+
+
     }
 
     public static void createWhiteboardApp(){

@@ -128,14 +128,17 @@ public class JoinWhiteBoard {
             } while (roomID == 0);
         }
 
-        // Use the parsed values
-        JOptionPane.showMessageDialog(null,
-                "Server address: " + serverAddress + "\n" +
-                        "Port number: " + serverPort + "\n" +
-                        "Username: " + userName + "\n" +
-                        "Connecting to host now application will appear once connection is established");
+        Thread connectionThread = new Thread(() -> {
+            // Use the parsed values
+            JOptionPane.showMessageDialog(null,
+                    "Server address: " + serverAddress + "\n" +
+                            "Port number: " + serverPort + "\n" +
+                            "Username: " + userName + "\n" +
+                            "Room ID: " + roomID + "\n" +
+                            "Connecting to host now, application will appear once connection is established");
+        });
 
-        // Connect to host and perform further actions
+        connectionThread.start();
     }
 
     public static void start(IRemoteServer server) throws RemoteException {
