@@ -15,9 +15,10 @@ Swing GUI toolkit
 ## How to Run
 1. Clone the repository
 2. Navigate to the out/artifacts
-3. Start the server using `java -jar OnlineWhiteBoard_Server.jar [portNumber]` the server will be running on your local IP address. Without portNumber Input, the server will run on default 1099.
-4. Create a room using `java -jar CreateWhiteboard.jar -u [username]`
-5. Join the room using `java -jar JoinWhiteboard.jar -u [username] -r[roomNumber]`
+3. Simply double click on the  OnlineWhiteBoard_Server.jar,  CreateWhiteboard.jar and JoinWhiteboard.jar
+4. Start the server using `java -jar OnlineWhiteBoard_Server.jar [portNumber]` the server will be running on your local IP address. Without portNumber Input, the server will run on default 1099.
+5. Create a room using `java -jar CreateWhiteboard.jar -u [username]`
+6. Join the room using `java -jar JoinWhiteboard.jar -u [username] -r[roomNumber]`
 ## Usage
 1. Start the application by following the above steps
 2. Create a room or join an existing one
